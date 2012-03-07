@@ -4,10 +4,21 @@
 # run this in the ingrid/maproom dir
 # output is the owl file needed for generatentriples
 
+# for generatentriples to work, the files need a url or fileurl e.g. http://iridl.ldeo.columbia.edu/maproom
+# or file:///data/jdcorral/iri_html/ingrid/maproom
+# this will be the one argument to gen_registry
+
+if (@ARGV == 0 ) {
+	print "usage: gen_registry.pl [url_for_maproom | fileurl_for_maproom\n";
+	print "e.g. gen_registry.pl http://iridl.ldeo.columbia.edu/maproom\n";
+	print "e.g. gen_registry.pl file:///data/jdcorral/iri_html/ingrid/maproom\n";
+	exit;
+}
+
 # check for files with rdfa  
 system ('find ./ -exec grep -il rdfa "{}" \; | sort > newmaproom.prelist');
 
-# generate list of files in this list that begin with <INGRID
+# files in this list that begin with <INGRID
 
 open MP, "<./newmaproom.prelist" or die "Can't open newmaproom.prelist: $!\n";
 open OP, ">./newmaproom.owl" or die "Can't open newmaproom.owl: $!\n";
@@ -20,8 +31,8 @@ print OP ("  xmlns:rdf=\"http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#\"\n");
 print OP ("  xmlns:rdfs=\"http:\/\/www.w3.org\/2000\/01\/rdf-schema#\"\n");
 print OP ("  xmlns:owl=\"http:\/\/www.w3.org\/2002\/07\/owl#\"\n");
 print OP ("  xmlns:rdfcache=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#\"\n");
-print OP ("  xmlns:newmaproom =\"http:\/\/iridl.ldeo.columbia.edu\/maproom\/newmaproom.owl#\"\n");
-print OP ("  xml:base=\"http:\/\/iridl.ldeo.columbia.edu\/maproom\/newmaproom.owl\">\n");
+print OP ("  xmlns:newmaproom =\"http:\/\/iri.columbia.edu\/~jdcorral/ingrid\/maproom\/newmaproom.owl#\"\n");
+print OP ("  xml:base=\"http:\/\/iri.columbia.edu\/~jdcorral\/ingrid\/maproom\/newmaproom.owl\">\n");
 print OP ("  <owl:Ontology rdf:about=\"\">\n");
 
 
@@ -38,7 +49,7 @@ while ( $mp = <MP> ) {
     $url = "http:\/\/iridl.ldeo.columbia.edu\/maproom\/".$mp;
     print OP ("    <newmaproom:importsRdfa rdf:resource=\"",$url,"\"\/>\n");
 } else {
-    print OP ("    <newmaproom:importsRdfa rdf:resource=\"file:\/\/\/",$mp,"\"\/>\n");
+    print OP ("    <newmaproom:importsRdfa rdf:resource=\"",$ARGV[0],"\/",$mp,"\"\/>\n");
 }
   close MP1;  
 }
