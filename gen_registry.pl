@@ -8,10 +8,8 @@
 # or file:///data/jdcorral/iri_html/ingrid/maproom
 # this will be the one argument to gen_registry
 
-if (@ARGV == 0 ) {
-	print "usage: gen_registry.pl [url_for_maproom | fileurl_for_maproom\n";
-	print "e.g. gen_registry.pl http://iridl.ldeo.columbia.edu/maproom\n";
-	print "e.g. gen_registry.pl file:///data/jdcorral/iri_html/ingrid/maproom\n";
+if (@ARGV > 0 ) {
+	print "usage: gen_registry.pl with no arguments, in the dir called maproom with map pages below it\n";
 	exit;
 }
 
@@ -31,8 +29,7 @@ print OP ("  xmlns:rdf=\"http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#\"\n");
 print OP ("  xmlns:rdfs=\"http:\/\/www.w3.org\/2000\/01\/rdf-schema#\"\n");
 print OP ("  xmlns:owl=\"http:\/\/www.w3.org\/2002\/07\/owl#\"\n");
 print OP ("  xmlns:rdfcache=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#\"\n");
-print OP ("  xmlns:newmaproom =\"http:\/\/iri.columbia.edu\/~jdcorral/ingrid\/maproom\/newmaproom.owl#\"\n");
-print OP ("  xml:base=\"http:\/\/iri.columbia.edu\/~jdcorral\/ingrid\/maproom\/newmaproom.owl\">\n");
+print OP ("  xmlns:newmaproom =\"http:\/\/iri.columbia.edu\/~jdcorral/ingrid\/maproom\/newmaproom.owl#\">\n");
 print OP ("  <owl:Ontology rdf:about=\"\">\n");
 
 
@@ -49,7 +46,7 @@ while ( $mp = <MP> ) {
     $url = "http:\/\/iridl.ldeo.columbia.edu\/maproom\/".$mp;
     print OP ("    <newmaproom:importsRdfa rdf:resource=\"",$url,"\"\/>\n");
 } else {
-    print OP ("    <newmaproom:importsRdfa rdf:resource=\"",$ARGV[0],"\/",$mp,"\"\/>\n");
+    print OP ("    <newmaproom:importsRdfa rdf:resource=\"",$mp,"\"\/>\n");
 }
   close MP1;  
 }
