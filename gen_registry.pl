@@ -3,10 +3,7 @@
 # New maproom registry based on relative file names from ingrid/maproom/
 # run this in the ingrid/maproom dir
 # output is the owl file needed for generatentriples
-
-# for generatentriples to work, the files need a url or fileurl e.g. http://iridl.ldeo.columbia.edu/maproom
-# or file:///data/jdcorral/iri_html/ingrid/maproom
-# this will be the one argument to gen_registry
+# there are no arguments to this script
 
 if (@ARGV > 0 ) {
 	print "usage: gen_registry.pl with no arguments, in the dir called maproom with map pages below it\n";
