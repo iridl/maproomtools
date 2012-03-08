@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# New maproom registry based on relative file names from ingrid/maproom/
+# maproom registry based on relative file names from ingrid/maproom/
 # run this in the ingrid/maproom dir
 # output is the owl file needed for generatentriples
 # there are no arguments to this script
@@ -11,12 +11,12 @@ if (@ARGV > 0 ) {
 }
 
 # check for files with rdfa  
-system ('find ./ -exec grep -il rdfa "{}" \; | sort > newmaproom.prelist');
+system ('find ./ -exec grep -il rdfa "{}" \; | sort > maproomregistry.prelist');
 
 # files in this list that begin with <INGRID
 
-open MP, "<./newmaproom.prelist" or die "Can't open newmaproom.prelist: $!\n";
-open OP, ">./newmaproom.owl" or die "Can't open newmaproom.owl: $!\n";
+open MP, "<./maproomregistry.prelist" or die "Can't open maproomregistry.prelist: $!\n";
+open OP, ">./maproomregistry.owl" or die "Can't open maproomregistry.owl: $!\n";
 
 # prepare top of owl file
 
@@ -26,7 +26,7 @@ print OP ("  xmlns:rdf=\"http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#\"\n");
 print OP ("  xmlns:rdfs=\"http:\/\/www.w3.org\/2000\/01\/rdf-schema#\"\n");
 print OP ("  xmlns:owl=\"http:\/\/www.w3.org\/2002\/07\/owl#\"\n");
 print OP ("  xmlns:rdfcache=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#\"\n");
-print OP ("  xmlns:newmaproom =\"http:\/\/iri.columbia.edu\/~jdcorral/ingrid\/maproom\/newmaproom.owl#\">\n");
+print OP ("  xmlns:newmaproom =\"http:\/\/iri.columbia.edu\/~jdcorral/ingrid\/maproom\/maproomregistry.owl#\">\n");
 print OP ("  <owl:Ontology rdf:about=\"\">\n");
 
 
@@ -49,7 +49,7 @@ while ( $mp = <MP> ) {
 }
 # close and remove temporary file
 close MP;
-system ('/bin/rm newmaproom.prelist');
+system ('/bin/rm maproomregistry.prelist');
 
 # prepare end of owl file
 print OP ("  <\/owl:Ontology>\n");
