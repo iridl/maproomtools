@@ -1,7 +1,8 @@
 construct {indexpage} vocab:section {mappage} iriterms:description {description}; 
 iriterms:title {title};
 iriterms:icon {icon};
-maproomregistry:tablabel {lbl}
+maproomregistry:tablabel {lbl};
+[maproomregistry:tabterm {tabterm}]
  from
 {indexpage} vocab:section {mappage},
 {mappage} iriterms:description {description};
