@@ -1,0 +1,14 @@
+Instructions for Harvesting the RDFa Terms from the Maproomscrape
+
+1) Pull out the mappage terms for title, description, and isDescribedBy
+by running the construct query, mappage_rdfa.serql, on iridlc:8180 
+maproomscrape2-owl using the openrdf-workbench interface (this process can
+be put in a script)
+
+# save the results as rdf/xml and give it the name mappages.xml
+
+2) Use the xslt-transform, mappage.xslt, to create xhtml that can be cut
+and pasted into the mappages that are being converted to contain rdfa for
+the new maproom.
+
+xsltproc mappage.xslt mappages.xml > mappages.xhtml

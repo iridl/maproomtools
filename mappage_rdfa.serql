@@ -1,0 +1,11 @@
+construct {map} rdf:type {iridl:map_page}; 
+<http://purl.org/dc/elements/1.1/title> {title};
+<http://purl.org/dc/elements/1.1/description> {dsc}; 
+iriterms:isDescribedBy {isdesc} from 
+{map} rdf:type {iridl:map_page}; 
+<http://purl.org/dc/elements/1.1/title> {title};
+<http://purl.org/dc/elements/1.1/description> {dsc};
+iriterms:isDescribedBy {isdesc}
+USING NAMESPACE
+iriterms = <http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#>,
+iridl = <http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#>
