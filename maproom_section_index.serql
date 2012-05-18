@@ -2,7 +2,8 @@ construct {indexpage} vocab:section {mappage} iriterms:description {description}
 iriterms:title {title};
 iriterms:icon {icon};
 maproomregistry:tablabel {lbl};
-[maproomregistry:tabterm {tabterm}]
+[maproomregistry:tabterm {tabterm}],
+{tabterm} rdf:label {lbl}
  from
 {indexpage} vocab:section {mappage},
 {mappage} iriterms:description {description};
@@ -11,6 +12,6 @@ iriterms:icon {icon};
 iriterms:isDescribedBy {tabterm} iriterms:label {lbl}
 WHERE lang(title)=lang(lbl)
 USING NAMESPACE
-maproomregistry = <http://iri.columbia.edu/~jdcorral/ingrid/maproom/maproomregistry.owl#>,
+maproomregistry = <file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#>,
 vocab = <http://www.w3.org/1999/xhtml/vocab#>,
 iriterms = <http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#>
