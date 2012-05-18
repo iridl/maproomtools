@@ -20,5 +20,7 @@ Run generatentriples.jar on triple store repository for maproom pages
 (iridlc6:8380 newmaproom-owl) to create the file 'tabs.xml' with runconstruct
 
 Use xsltproc to read the index.xhtml.xx stub and create the index.html.xx file(s)
-xsltproc tab.xslt index.xhtml.en > test.html.en
-xsltproc tab.xslt index.xhtml.es > test.html.es
+Presently, you have to copy tab.xslt from maproomtools to the directory where you run the
+following commands
+xsltproc tab.xslt index.xhtml.en > index.html.en
+xsltproc tab.xslt index.xhtml.es > index.html.es
