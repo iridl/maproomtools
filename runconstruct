@@ -1,7 +1,10 @@
 # run a construct query on a sesame repository and convert output to rdfxml-abbrev
+# set up for building tabs.xml which will be used to the tab section in the index.html
+# page one level above the leaf maproom pages.  Run on a machine that has rapper,
+# or execute the last command on a machine that does.
 date --iso-8601=minutes
 /bin/rm -rf ./constructcache/*
- java -Xmx2048m -jar /data/jdcorral/SVN4/generatentriple/build/dist/generatentriples.jar -cache=constructcache -repository=newmaproom-owl -construct=/home/jdcorral/testinstall_ia_v60/ingrid/maproomtools/maproom_section_index.serql -constructoutput=./tabs.nt http://iri.columbia.edu/~jdcorral/ingrid/maproom/maproomregistry.owl > constructlog.`date --iso-8601=minutes`
+ java -Xmx2048m -jar /data/jdcorral/SVN4/generatentriple/build/dist/generatentriples.jar -cache=constructcache -repository=newmaproom-owl -construct=/data/jdcorral/maproomtools/maproom_section_index.serql -constructoutput=./tabs.nt file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl > constructlog.`date --iso-8601=minutes`
 # java -Xmx2048m -Dhttp.proxyHost=iridl2p.ldeo.columbia.edu -Dhttp.proxyPort=3128 -jar dist/generatentriples.jar -cache=newmaproomcache http://iri.columbia.edu/~jdcorral/ontologies/maproomregistry.owl > newmaproomlog.`date --iso-8601=minutes`
 date --iso-8601=minutes
 rapper -q -i ntriples -o rdfxml-abbrev tabs.nt > tabs.xml
