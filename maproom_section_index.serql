@@ -12,6 +12,6 @@ iriterms:icon {icon};
 iriterms:isDescribedBy {tabterm} iriterms:label {lbl}
 WHERE lang(title)=lang(lbl)
 USING NAMESPACE
-maproomregistry = <file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#>,
+maproomregistry = <http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#>,
 vocab = <http://www.w3.org/1999/xhtml/vocab#>,
 iriterms = <http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#>

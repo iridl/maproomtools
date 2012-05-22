@@ -1,26 +1,37 @@
 	Instructions for Building up New Maproom from Leaf Mappages
 
-1) Make sure that leaf mappages (i.e. lowest level mappage in a maproom
+1) maproomtools/rdfalint.pl
+ 
+Make sure that leaf mappages (i.e. lowest level mappage in a maproom
 subdir) can be parsed by running rdfalint.pl on each mappage
 
-2) Generate maproom registry of all mappages that have rdfa content with gen_registry.pl
-# run this in the ingrid/maproom dir
-# output is the maproomregistry.owl file needed for generatentriples
-# there are no arguments to this script
+2) maproomtools/gen_registry.pl
 
-3) Create RDF/XML triples from the rdfa content of all the mappages listed in maproomregistry.owl
+Generate maproom registry of all mappages that have rdfa content with gen_registry.pl
+# Run this in the ingrid/maproom dir
+# Output is the maproomregistry.owl file needed for generatentriples
+# There are no arguments to this script; maproomregistry.owl is created in the ingrid/maproom dir
+# The namespace for maproomregistry must point to the actual file or URL location of the 
+# maproomregistry.owl file
+
+3) maproomtools/runnewmaproom
+
+Create RDF/XML triples from the rdfa content of all the mappages listed in maproomregistry.owl
 with runnewmaproom
-# this must be run in the directory that has all the maproom subdirs, 
+# This must be run in the directory that has all the maproom subdirs, 
 # like /data/jdcorral/iri_html/ingrid/maproom
-# triples are stored in newmaproom-owl on http://iridlc6.ldeo.columbia.edu:8380/openrdf-sesame
+# Triples are stored in newmaproomcache/owlimMaxRepository.trig
 
-4) Building index page from leaf pages
+4) maproomtools/maproom_section_index.serql
 
-Run generatentriples.jar on triple store repository for maproom pages
-(iridlc6:8380 newmaproom-owl) to create the file 'tabs.xml' with runconstruct
+Building index page from leaf pages by creating the file 'tabs.xml' as
+the second part of maproomtools/runnewmaproom with maproomtools/maproom_section_index.serql.
+The namespace declaration for maproomregistry must be the same as the one
+used in maproomtools/tab.xslt
+
+4) maproomtools/tab.xslt
 
 Use xsltproc to read the index.xhtml.xx stub and create the index.html.xx file(s)
-Presently, you have to copy tab.xslt from maproomtools to the directory where you run the
-following commands
-xsltproc tab.xslt index.xhtml.en > index.html.en
-xsltproc tab.xslt index.xhtml.es > index.html.es
+Presently, you have to copy tab.xslt from maproomtools to the ingrid/maproom
+xsltproc tab.xslt IFRC/index.xhtml.en > IFRC/index.html.en
+xsltproc tab.xslt IFRC/index.xhtml.es > IFRC/index.html.es
