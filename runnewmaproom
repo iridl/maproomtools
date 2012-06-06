@@ -15,11 +15,11 @@ date --iso-8601=minutes
 rapper -q -i ntriples -o rdfxml-abbrev tabs.nt > tabs.xml
 
 # external version
-#date --iso-8601=minutes
-#/data/jdcorral/Sesame2/bin/sesame2_console.sh <<EOT
-#connect http://iridlc6.ldeo.columbia.edu:8380/openrdf-sesame.
-#open newmaproom-owl.
-#clear.
-#load newmaproomcache/owlimMaxRepository.nt.
-#EOT
+date --iso-8601=minutes
+/data/jdcorral/Sesame2/bin/sesame2_console.sh <<EOT
+connect http://iridlc6.ldeo.columbia.edu:8380/openrdf-sesame.
+open newmaproom-owl.
+clear.
+load newmaproomcache/owlimMaxRepository.nt.
+EOT
 date --iso-8601=minutes
