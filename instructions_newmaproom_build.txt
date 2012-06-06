@@ -31,7 +31,9 @@ used in maproomtools/tab.xslt
 
 4) maproomtools/tab.xslt
 
-Use xsltproc to read the index.xhtml.xx stub and create the index.html.xx file(s)
+Use saxon to read the index.xhtml.xx stub and create the index.html.xx file(s)
 Presently, you have to copy tab.xslt from maproomtools to the ingrid/maproom
-xsltproc tab.xslt IFRC/index.xhtml.en > IFRC/index.html.en
-xsltproc tab.xslt IFRC/index.xhtml.es > IFRC/index.html.es
+
+java -jar ~jdcorral/xmldocs/workspace/olfs/lib/saxon-9.1.0.5.jar IFRC/index.xhtml.en tab.xslt > IFRC/index.html.en
+java -jar ~jdcorral/xmldocs/workspace/olfs/lib/saxon-9.1.0.5.jar IFRC/index.xhtml.es tab.xslt > IFRC/index.html.es
+
