@@ -5,6 +5,7 @@
             xmlns:maproom="http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#"
 	    xmlns:vocab="http://www.w3.org/1999/xhtml/vocab#"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	    xmlns:iriterms="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#">
 <xsl:output method="xhtml" indent="yes" encoding="utf-8"/>
 
@@ -106,15 +107,40 @@
             </div>
          </xsl:for-each> <!-- TABTERM -->
          </xsl:when>
-         <xsl:otherwise>
-         <xsl:comment>WHEN THERE IS NO TABTERM</xsl:comment>
+         <xsl:otherwise> <!-- WHEN THERE IS NO TABTERM -->
             <div id="tabs" class="ui-tabs-panel">
+                    <!-- BUILD LIST OF SUB-SECTION URLS -->
+                    <xsl:variable name="subsectionurls" as="xs:string*">
+                       <xsl:sequence 
+                          select="$tabs/rdf:RDF/rdf:Description[substring-after(@rdf:about,$pageloc)='']/vocab:section/@rdf:resource[1]"/>
+                    </xsl:variable>
+                      <!-- <div>
+                      <xsl:value-of select="$subsectionurls" />
+                      </div> -->
                     <!-- FIND THE SUB-SECTION URLS -->
                     <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[substring-after(@rdf:about,$pageloc)='']/vocab:section/@rdf:resource[1]" >
                       <xsl:variable name="subsection" select="." />
-                      <xsl:if test="not(contains($subsection,'xhtml'))" ><!-- FILTER OUT THE XHMTL PAGES -->
-                         <!-- FILTER PAGES THAT HAVE LANG EXTENSIONS THAT DON'T MATCH THE CURRENT PAGE'S -->
-                        <xsl:if test="ends-with($subsection,'.html') or ends-with($subsection,$language)">
+                      <!-- FILTER OUT THE XHMTL PAGES AND CURRENT PAGE'S HTML -->
+                      <xsl:if test="not(contains($subsection,'xhtml')) and not(contains($subsection, concat($pageloc,'index.html')))" >
+                         <!-- DEFINE A VARIABLE THAT IS THE SUBSECTION WITH THE DOC'S LANG EXTENSION -->
+                         <xsl:variable name="langsubsection" >
+                            <xsl:choose>
+                              <xsl:when test="ends-with($subsection,'.html')">
+                                 <xsl:value-of select="concat($subsection,(concat('.',$language)))" />
+                              </xsl:when>
+                              <xsl:otherwise>
+                                 <xsl:value-of select="concat(substring-before($subsection,'.'),concat('.html.',$language))" />
+                              </xsl:otherwise>
+                            </xsl:choose>
+                         </xsl:variable>
+                      <!-- <div>
+                      <xsl:value-of select="$langsubsection" />
+                      </div> -->
+                         <!-- CHECK TO SEE IF SUBSECTION ENDS WITH .HTML, THE APPROPRIATE LANG VERSION, OR WHNEN THERE IS NO APPROPRIATE LANG VERSION, ENDS WITH .EN -->
+                        <xsl:if test="ends-with($subsection,'.html') or ends-with($subsection,$language) or (not(index-of($subsectionurls,$langsubsection)) and ends-with($subsection,'.en'))" >
+                      <!-- <div>
+                      <xsl:value-of select="$subsection" />
+                      </div> -->
                         <xsl:variable name="link">
                           <xsl:choose><!-- DETERMINE IF LINK HAS A LANGUAGE EXTENSION -->
                             <xsl:when test="contains(substring-after($subsection,$pageloc),concat('.',$language))">
