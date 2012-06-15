@@ -114,7 +114,14 @@
                             <div class="item"><div class="itemTitle"><a class="carry titleLink" href="{$link}">
                             <xsl:value-of select="iriterms:title"/>
                             </a></div>
-                            <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
+                            <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
+                              <xsl:when test="contains(iriterms:icon/@rdf:resource,'http:')">
+                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{substring-after(iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                              </xsl:otherwise>
+                            </xsl:choose>                            
                             <div class="itemDescription">
                             <xsl:value-of select="iriterms:description" disable-output-escaping="no"/></div>
                             <div class="itemFooter"></div>
@@ -125,7 +132,14 @@
                             <div class="item"><div class="itemTitle"><a class="titleLink" href="{$link}">
                             <xsl:value-of select="iriterms:title"/>
                             </a></div>
-                            <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
+                            <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
+                              <xsl:when test="contains(iriterms:icon/@rdf:resource,'http:')">
+                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{substring-after(iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                              </xsl:otherwise>
+                            </xsl:choose>                            
                             <div class="itemDescription">
                             <xsl:value-of select="iriterms:description" disable-output-escaping="no"/></div>
                             <div class="itemFooter"></div>
@@ -135,7 +149,14 @@
                             <div class="item"><div class="itemTitle"><a class="titleLink" href="{$link}">
                             <xsl:value-of select="iriterms:title"/>
                             </a></div>
-                            <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
+                            <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
+                              <xsl:when test="contains(iriterms:icon/@rdf:resource,'http:')">
+                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{substring-after(iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                              </xsl:otherwise>
+                            </xsl:choose>                            
                             <div class="itemDescription">
                             <xsl:value-of select="iriterms:description" disable-output-escaping="no"/></div>
                             <div class="itemFooter"></div>
@@ -217,9 +238,12 @@
                           <div class="item"><div class="itemTitle"><a class="titleLink" href="{$link}">
                           <xsl:value-of select="$tabs/rdf:RDF/rdf:Description[@rdf:about=$subsection]/iriterms:title"/> <!-- SUBSECTION TITLE -->
                           </a></div>
-                          <xsl:choose><!-- CHECK FOR ICON; IF NONE, USE IRI LOGO -->
-                            <xsl:when test="$tabs/rdf:RDF/rdf:Description[@rdf:about=$subsection]/iriterms:icon">
+                          <xsl:choose><!-- CHECK FOR ICON; IF NONE, USE IRI LOGO AND IF FILE:///, USE LOCAL PATH -->
+                            <xsl:when test="$tabs/rdf:RDF/rdf:Description[@rdf:about=$subsection]/iriterms:icon and contains($tabs/rdf:RDF/rdf:Description[@rdf:about=$subsection]/iriterms:icon/@rdf:resource,'http:')">
                               <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="{$tabs/rdf:RDF/rdf:Description[@rdf:about=$subsection]/iriterms:icon/@rdf:resource}"/></a></div>
+                            </xsl:when>
+                            <xsl:when test="$tabs/rdf:RDF/rdf:Description[@rdf:about=$subsection]/iriterms:icon and contains($tabs/rdf:RDF/rdf:Description[@rdf:about=$subsection]/iriterms:icon/@rdf:resource,'file:')">
+                              <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="{substring-after($tabs/rdf:RDF/rdf:Description[@rdf:about=$subsection]/iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
                             </xsl:when>
                             <xsl:otherwise>
                               <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="icons/iri.png"/></a></div>
