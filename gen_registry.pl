@@ -63,12 +63,12 @@ system ('/bin/rm maproomregistry.prelist');
 
 # prepare end of owl file
 print OP ("  <\/owl:Ontology>\n");
-print OP ("    <owl:ObjectProperty rdf:ID=\"importsRdfa\">\n");
-print OP ("        <rdfs:range rdf:resource=\"#RdfaType\"\/>\n");
+print OP ("    <owl:ObjectProperty rdf:about=\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#importsRdfa\">\n");
+print OP ("        <rdfs:range rdf:resource=\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#RdfaType\"\/>\n");
 print OP ("        <rdfs:subPropertyOf rdf:resource=\"http:\/\/www.w3.org\/2002\/07\/owl#imports\"\/>\n");
 print OP ("        <rdfs:isDefinedBy rdf:resource=\"\"\/>\n");
 print OP ("    <\/owl:ObjectProperty>\n");
-print OP ("  <owl:Class rdf:about=\"#RdfaType\">\n");
+print OP ("  <owl:Class rdf:about=\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl##RdfaType\">\n");
 print OP ("    <rdfs:subClassOf>\n");
 print OP ("      <owl:Restriction>\n");
 print OP ("        <owl:onProperty rdf:resource=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#hasXslTransformToRdf\"\/>\n");
