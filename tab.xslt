@@ -9,7 +9,8 @@
 	    xmlns:iriterms="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#">
 <xsl:output method="xhtml" indent="yes" encoding="utf-8"/>
 
-<xsl:variable name="language" select="//@xml:lang"/>
+<xsl:variable name="language" select="//@xml:lang"/> <!-- LANG OF PAGE WE ARE ON -->
+<xsl:variable name="defaultlanguage" select="'en'"/> <!-- DEFAULT LANG FOR SECTIONS -->
 <xsl:variable name="tabs" select="document('tabs.xml')"/> <!-- WHERE ALL THE RDF IS STORED -->
 
     <xsl:template match="@*|node()"> <!-- COPY CONTENTS OF XHTML FILE AS IS -->
@@ -59,27 +60,55 @@
                 <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang=$language]"/>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang='en']"/> <!-- OTHERWISE USE EN -->
+                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang='en']"/> <!-- OTHERWISE USE EN (BE CAREFUL ABOUT THIS CONDITION) -->
               </xsl:otherwise>
             </xsl:choose>
             </xsl:variable> 
             <div class="itemGroup"><xsl:value-of select="$group" disable-output-escaping="no" /></div>
+                    <!-- BUILD LIST OF SUB-SECTION URLS FOR A GROUP -->
+                    <xsl:variable name="subsectionurls" as="xs:string*">
+                       <xsl:sequence 
+                          select="$tabs/rdf:RDF/rdf:Description[ends-with(@rdf:about,$pageloc)]/vocab:section/@rdf:resource[1]"/>
+                    </xsl:variable>
+                      <!-- <div>
+                      <xsl:value-of select="$subsectionurls" />
+                      </div> -->
                     <!-- THIS SHOULD PROBABLY BE MORE RESTRICTIVE, RIGHT NOW IT CHECKS TO SEE IF MAPPAGE'S ABOUT CONTAINS THE INDEX PAGE THAT WE ARE PROCESSING -->
                     <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[contains(@rdf:about,$pageloc)]"> 
                     <xsl:sort select="@rdf:about"/>
-                      <xsl:if test="maproomregistry:tablabel = $group"> <!-- MAKE SURE THE MAPPAGE IS IN THE CURRENT TABTERM GROUP -->
+                      <xsl:if test="maproomregistry:tabterm/@rdf:resource = $hr"> <!-- MAKE SURE THE MAPPAGE IS IN THE CURRENT TABTERM GROUP (THIS IS EFFECTIVELY THE INNER LOOP FOR A GROUP)-->
+                      <!-- <div>
+                      <xsl:value-of select="@rdf:about" />
+                      </div> -->
                         <xsl:variable name="link">
                           <xsl:choose> <!-- IF THE MAPPAGE HAS A LANGUAGE EXTENSION, WE NEED TO REMOVE IT TO MAKE THE LINK CANONICAL -->
                             <xsl:when test="contains(substring-after(@rdf:about,$pageloc),concat('.',$language))">
                               <xsl:value-of select="substring-before(substring-after(@rdf:about,$pageloc),concat('.',$language))"/>
+                            </xsl:when>
+                            <xsl:when test="contains(substring-after(@rdf:about,$pageloc),concat('.',$defaultlanguage))">
+                              <xsl:value-of select="substring-before(substring-after(@rdf:about,$pageloc),concat('.',$defaultlanguage))"/>
                             </xsl:when>
                             <xsl:otherwise>
                               <xsl:value-of select="substring-after(@rdf:about,$pageloc)"/>
                             </xsl:otherwise>
                           </xsl:choose>
                         </xsl:variable>
+                         <!-- DEFINE A VARIABLE THAT WOULD BE THE SUBSECTION WITH THE DOC'S LANG EXTENSION -->
+                         <xsl:variable name="langsubsection" >
+                            <xsl:choose>
+                              <xsl:when test="ends-with(@rdf:about,'.html')">
+                                 <xsl:value-of select="concat(@rdf:about,(concat('.',$language)))" />
+                              </xsl:when>
+                              <xsl:otherwise>
+                                 <xsl:value-of select="concat(substring-before(@rdf:about,'.'),concat('.html.',$language))" />
+                              </xsl:otherwise>
+                            </xsl:choose>
+                         </xsl:variable>
+                      <!-- <div>
+                      <xsl:value-of select="$langsubsection" />
+                      </div> -->
                         <!-- EACH LEAF MAPPAGE MUST HAVE A TITLE, DESCRIPTION, AND ICON -->
-                        <!-- SET CLASS ACCORDING TO WHETHER LINK 1) MATCHES LANG, 2) DOESN'T MATCH OR HAS NO LANG -->
+                        <!-- SET CLASS ACCORDING TO WHETHER LINK 1) MATCHES LANG, 2) DOESN'T MATCH OR HAS NO LANG 3) DOESN'T MATCH BUT THERE IS A DEFAULT LANG VERSION -->
                         <xsl:choose> 
                           <xsl:when test="ends-with(@rdf:about,$language)"> <!-- MATCHES LANG -->
                             <div class="item"><div class="itemTitle"><a class="carry titleLink" href="{$link}">
@@ -91,7 +120,8 @@
                             <div class="itemFooter"></div>
                             </div>
                           </xsl:when>
-                          <xsl:otherwise> <!-- LANG DOESN'T MATCH OR HAS NO LANG -->
+                          <!-- MATCHES DEFAULT LANG AND THERE IS NO MATCH IN GROUP FOR LANG VERSION -->
+                          <xsl:when test="ends-with(@rdf:about,$defaultlanguage) and not(index-of($subsectionurls,$langsubsection))">
                             <div class="item"><div class="itemTitle"><a class="titleLink" href="{$link}">
                             <xsl:value-of select="iriterms:title"/>
                             </a></div>
@@ -100,7 +130,17 @@
                             <xsl:value-of select="iriterms:description" disable-output-escaping="no"/></div>
                             <div class="itemFooter"></div>
                             </div>
-                          </xsl:otherwise>
+                          </xsl:when>
+                          <xsl:when test="ends-with(@rdf:about,'.html')"> <!-- ONLY A .HTML VERSION EXISTS -->
+                            <div class="item"><div class="itemTitle"><a class="titleLink" href="{$link}">
+                            <xsl:value-of select="iriterms:title"/>
+                            </a></div>
+                            <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
+                            <div class="itemDescription">
+                            <xsl:value-of select="iriterms:description" disable-output-escaping="no"/></div>
+                            <div class="itemFooter"></div>
+                            </div>
+                          </xsl:when>
                         </xsl:choose> <!-- CHOOSE CLASS(S) -->
                     </xsl:if> <!-- MEMBER OF THE GROUP -->
                   </xsl:for-each> 
@@ -122,7 +162,7 @@
                       <xsl:variable name="subsection" select="." />
                       <!-- FILTER OUT THE XHMTL PAGES AND CURRENT PAGE'S HTML -->
                       <xsl:if test="not(contains($subsection,'xhtml')) and not(contains($subsection, concat($pageloc,'index.html')))" >
-                         <!-- DEFINE A VARIABLE THAT IS THE SUBSECTION WITH THE DOC'S LANG EXTENSION -->
+                         <!-- DEFINE A VARIABLE THAT WOULD BE THE SUBSECTION WITH THE DOC'S LANG EXTENSION -->
                          <xsl:variable name="langsubsection" >
                             <xsl:choose>
                               <xsl:when test="ends-with($subsection,'.html')">
@@ -137,7 +177,7 @@
                       <xsl:value-of select="$langsubsection" />
                       </div> -->
                          <!-- CHECK TO SEE IF SUBSECTION ENDS WITH .HTML, THE APPROPRIATE LANG VERSION, OR WHNEN THERE IS NO APPROPRIATE LANG VERSION, ENDS WITH .EN -->
-                        <xsl:if test="ends-with($subsection,'.html') or ends-with($subsection,$language) or (not(index-of($subsectionurls,$langsubsection)) and ends-with($subsection,'.en'))" >
+                        <xsl:if test="ends-with($subsection,'.html') or ends-with($subsection,$language) or (not(index-of($subsectionurls,$langsubsection)) and ends-with($subsection,$defaultlanguage))" >
                       <!-- <div>
                       <xsl:value-of select="$subsection" />
                       </div> -->
@@ -145,6 +185,9 @@
                           <xsl:choose><!-- DETERMINE IF LINK HAS A LANGUAGE EXTENSION -->
                             <xsl:when test="contains(substring-after($subsection,$pageloc),concat('.',$language))">
                               <xsl:value-of select="substring-before(substring-after($subsection,$pageloc),concat('.',$language))"/>
+                            </xsl:when>
+                            <xsl:when test="contains(substring-after($subsection,$pageloc),concat('.',$defaultlanguage))">
+                              <xsl:value-of select="substring-before(substring-after($subsection,$pageloc),concat('.',$defaultlanguage))"/>
                             </xsl:when>
                             <xsl:otherwise>
                                 <xsl:value-of select="substring-after($subsection,$pageloc)"/> <!-- IF NO LANG EXTENSION -->
