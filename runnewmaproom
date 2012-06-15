@@ -1,3 +1,4 @@
+#!/bin/csh -f
 # local version, all maproom pages have relative paths.
 # this must be run in the directory that has all the maproom subdirs, like /data/jdcorral/iri_html/ingrid/maproom
 date --iso-8601=minutes
