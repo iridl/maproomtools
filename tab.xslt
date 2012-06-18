@@ -134,10 +134,10 @@
                             </a></div>
                             <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
                               <xsl:when test="contains(iriterms:icon/@rdf:resource,'http:')">
-                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
+                                <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
                               </xsl:when>
                               <xsl:otherwise>
-                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{substring-after(iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                                <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="{substring-after(iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
                               </xsl:otherwise>
                             </xsl:choose>                            
                             <div class="itemDescription">
@@ -151,10 +151,10 @@
                             </a></div>
                             <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
                               <xsl:when test="contains(iriterms:icon/@rdf:resource,'http:')">
-                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
+                                <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="{iriterms:icon/@rdf:resource}"/></a></div>
                               </xsl:when>
                               <xsl:otherwise>
-                                <div class="itemIcon"><a class="carry titleLink" href="{$link}"><img class="itemImage" src="{substring-after(iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                                <div class="itemIcon"><a class="titleLink" href="{$link}"><img class="itemImage" src="{substring-after(iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
                               </xsl:otherwise>
                             </xsl:choose>                            
                             <div class="itemDescription">
