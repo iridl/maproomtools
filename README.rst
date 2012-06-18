@@ -5,7 +5,10 @@ Prerequisites
 
    yum install raptor
 
-* IRI DL's ``sematic_tools`` package. You may find build and installation instructions at: `<https://bitbucket.org/iridl/semantic_tools>`_.
+* IRI DL's semantic_tools_ package. 
+
+.. _semantic_tools: https://bitbucket.org/iridl/semantic_tools
+
 
    
 
