@@ -14,6 +14,9 @@ if (@ARGV > 0 ) {
 
 print "Building index.hmtl files\n";
 
+# copy the tab.xslt file from the maproomtools dir
+system ('cp /data/jdcorral/git_build/ingrid/maproomtools/tab.xslt .'); 
+
 system ('grep xhtml maproomregistry.owl > index.prelist');
 
 open IP, "<./index.prelist" or die "Can't open index.prelist: $!\n";
