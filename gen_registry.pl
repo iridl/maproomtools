@@ -17,6 +17,8 @@ if (@ARGV > 0 ) {
 
 my @exts = qw(.en .es .fr .html .xhtml);
 
+print "Building maproomregistry.\n";
+
 system ('find ./ -exec grep -l XHTML+RDFa "{}" \; | sort > maproomregistry.prelist');
 
 open MP, "<./maproomregistry.prelist" or die "Can't open maproomregistry.prelist: $!\n";

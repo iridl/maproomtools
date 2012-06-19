@@ -12,6 +12,8 @@ if (@ARGV > 0 ) {
 	exit;
 }
 
+print "Building index.hmtl files\n";
+
 system ('grep xhtml maproomregistry.owl > index.prelist');
 
 open IP, "<./index.prelist" or die "Can't open index.prelist: $!\n";
@@ -25,7 +27,7 @@ while ( $ip = <IP> ) {
 # create the html version of $ip
   $op = $ip;
   $op =~ s/xhtml/html/;
-  $command = "java -jar ~jdcorral/xmldocs/workspace/olfs/lib/saxon-9.1.0.5.jar $ip tab.xslt > $op";
+  $command = "java -jar /data/jdcorral/git_build/semantic_tools/libs/saxon-9.1.0.5.jar $ip tab.xslt > $op";
 #  print "$command \n";
   system ($command) == 0
      or die "system $command failed: $?";
