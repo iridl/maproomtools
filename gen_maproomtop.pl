@@ -39,8 +39,10 @@ print OP ("  <owl:Ontology rdf:about=\"\">\n");
 # read through and copy top.xml  (there needs to be some editing here, but will be added later)
 
 while ( $mp = <MP> ) {
-  chomp $mp;
-  print OP ("$mp\n");
+    if($mp =~ /importsRdfa/){
+$mp =~ s/rdf:resource="file:[^ "]+\/maproom\/([^ "]+)"/rdf:resource="\1"/;
+  print OP "$mp";
+    }
 }
 close MP;
 
@@ -62,6 +64,21 @@ print OP ("        <\/owl:hasValue>\n");
 print OP ("      <\/owl:Restriction>\n");
 print OP ("    <\/rdfs:subClassOf>\n");
 print OP ("  <\/owl:Class>\n");
+print OP << 'EOR';
+<rdfcache:ConstructRule ID="map2rss">
+ <rdfcache:serql_text rdf:datatype="http://www.w3.org/2001/XMLSchema#;string">
+CONSTRUCT DISTINCT {canonicalurl} rss:link {fn:cast(canonicalurl,xsd:string)}
+FROM {map} vocab:canonical {canonicalurl}
+USING NAMESPACE
+ fn = &lt;import:opendap.semantics.IRISail.RepositoryFunctions#&gt;,   
+map2serf = &lt;http://iridl.ldeo.columbia.edu/ontologies/map2serf.owl#&gt;,
+iridl = &lt;http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#&gt;,
+rss = &lt;http://purl.org/rss/1.0/&gt;,
+vocab=&lt;http://www.w3.org/1999/xhtml/vocab#&gt;,
+xsd=&lt;http://www.w3.org/2001/XMLSchema#&gt;
+</rdfcache:serql_text>
+</rdfcache:ConstructRule>
+EOR
 print OP ("<\/rdf:RDF>\n");
 
 
