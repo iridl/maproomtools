@@ -6,6 +6,7 @@
 # you must have rdfcache in your path
 
 use File::Basename;
+use Cwd;
 
 if (@ARGV > 0 ) {
 	print "usage: gen_maproomtop.pl with no arguments, in the dir called maproom with map pages below it, like ingrid/maproom\n";
@@ -14,7 +15,20 @@ if (@ARGV > 0 ) {
 
 # run SeRQL CONSTRUCT with maproomregistry.owl as the starting point
 
-system('rdfcache -construct=/data/jdcorral/semantics/SeRQL/canonical_imports.serql -constructoutput=./top.nt -cache=maproomtopcache file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl > maproomtoplog.`date --iso-8601=minutes`');
+open IP, ">canonical_imports.serql";
+print IP <<EOQ;
+construct distinct
+{<http://iridl.ldeo.columbia.edu/proto/maproom/maproomtop.owl>} rdf:type {owl:Ontology} ; 
+owl:imports {<http://iridl.ldeo.columbia.edu/ontologies/iridlcontent.owl>}; maproomregistry:importsRdfa {y} 
+from
+{x} vocab:canonical {y}
+USING NAMESPACE
+vocab=<http://www.w3.org/1999/xhtml/vocab#>,
+maproomregistry=<file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#>
+EOQ
+    close IP;
+my $pwd = cwd();
+system('rdfcache -construct=canonical_imports.serql -constructoutput=./top.nt -cache=maproomtopcache file:///$pwd/maproomregistry.owl > maproomtoplog.`date --iso-8601=minutes`');
 
 # convert ntriples to rdfxml
 
