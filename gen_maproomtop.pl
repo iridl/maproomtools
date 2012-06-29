@@ -128,7 +128,9 @@ print OP << 'EOR';
 <rdfcache:ConstructRule ID="map2rss">
  <rdfcache:serql_text rdf:datatype="http://www.w3.org/2001/XMLSchema#;string">
 CONSTRUCT DISTINCT {canonicalurl} rss:link {fn:cast(canonicalurl,xsd:string)}
-FROM {map} vocab:canonical {canonicalurl}
+    FROM {map} vocab:canonical {canonicalurl}, 
+    [{canonicalurl} rss:link {rsslink}]
+    WHERE {rsslink}=NULL
 USING NAMESPACE
  fn = &lt;import:opendap.semantics.IRISail.RepositoryFunctions#&gt;,   
 map2serf = &lt;http://iridl.ldeo.columbia.edu/ontologies/map2serf.owl#&gt;,
