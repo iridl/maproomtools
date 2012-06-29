@@ -28,7 +28,8 @@ maproomregistry=<file:///data/jdcorral/git_projects/ingrid/maproom/maproomregist
 EOQ
     close IP;
 my $pwd = cwd();
-system('rdfcache -construct=canonical_imports.serql -constructoutput=./top.nt -cache=maproomtopcache file:///$pwd/maproomregistry.owl > maproomtoplog.`date --iso-8601=minutes`');
+print " In $pwd\n";
+system("rdfcache -construct=canonical_imports.serql -constructoutput=./top.nt -cache=maproomtopcache file:///$pwd/maproomregistry.owl > maproomtoplog.`date --iso-8601=minutes`");
 
 # convert ntriples to rdfxml
 
@@ -41,16 +42,18 @@ open OP, ">./maproomtop.owl" or die "Can't open maproomtop.owl: $!\n";
 
 # prepare top of owl file
 
-print OP ("<?xml version=\"1.0\"?>\n");
-print OP ("<rdf:RDF\n");
-print OP ("  xmlns:rdf=\"http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#\"\n");
-print OP ("  xmlns:rdfs=\"http:\/\/www.w3.org\/2000\/01\/rdf-schema#\"\n");
-print OP ("  xmlns:owl=\"http:\/\/www.w3.org\/2002\/07\/owl#\"\n");
-print OP ("  xmlns:rdfcache=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#\"\n");
-print OP ("  xmlns:maproomregistry =\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#\">\n");
-print OP ("  <owl:Ontology rdf:about=\"\">\n");
-
-# read through and copy top.xml  (there needs to be some editing here, but will be added later)
+print OP <<"EOH";
+<?xml version="1.0"?>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdfcache="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#"
+  xmlns:cross="http://iridl.ldeo.columbia.edu/ontologies/iricrosswalk.owl#"
+  xmlns:maproomregistry ="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#">
+  <owl:Ontology rdf:about="">
+EOH
+# read through and copy top.xml 
 
 while ( $mp = <MP> ) {
     if($mp =~ /importsRdfa/){
@@ -62,23 +65,66 @@ close MP;
 
 # prepare end of owl file
 print OP ("  <\/owl:Ontology>\n");
-print OP ("    <owl:ObjectProperty rdf:about=\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#importsRdfa\">\n");
-print OP ("        <rdfs:range rdf:resource=\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#RdfaType\"\/>\n");
-print OP ("        <rdfs:subPropertyOf rdf:resource=\"http:\/\/www.w3.org\/2002\/07\/owl#imports\"\/>\n");
-print OP ("        <rdfs:isDefinedBy rdf:resource=\"\"\/>\n");
-print OP ("    <\/owl:ObjectProperty>\n");
-print OP ("  <owl:Class rdf:about=\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#RdfaType\">\n");
-print OP ("    <rdfs:subClassOf>\n");
-print OP ("      <owl:Restriction>\n");
-print OP ("        <owl:onProperty rdf:resource=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#hasXslTransformToRdf\"\/>\n");
-print OP ("        <owl:hasValue>\n");
-print OP ("          <rdfcache:XslTransform rdf:about=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/xslt\/RDFa2RDFXML.xsl\"><rdfs:label>RDFa2RDFXML<\/rdfs:label>\n");
-print OP ("	  <\/rdfcache:XslTransform>\n");
-print OP ("        <\/owl:hasValue>\n");
-print OP ("      <\/owl:Restriction>\n");
-print OP ("    <\/rdfs:subClassOf>\n");
-print OP ("  <\/owl:Class>\n");
 print OP << 'EOR';
+ <owl:ObjectProperty rdf:about="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#importsRdfa">
+        <rdfs:range rdf:resource="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#RdfaType"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#imports"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+
+    </owl:ObjectProperty>
+     <owl:ObjectProperty rdf:about="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#leadsTo">
+        <rdfs:range rdf:resource="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#RdfaType"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:ObjectProperty>
+     <owl:ObjectProperty rdf:about="http://www.w3.org/1999/xhtml/vocab#section">
+        <rdfs:subPropertyOf rdf:resource="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#leadsTo"/>
+     </owl:ObjectProperty>
+     <owl:ObjectProperty rdf:about="http://www.w3.org/1999/xhtml/vocab#alternate">
+
+        <rdfs:subPropertyOf rdf:resource="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#leadsTo"/>
+     </owl:ObjectProperty>
+
+  <owl:Class rdf:about="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#RdfaType">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#hasXslTransformToRdf"/>
+        <owl:hasValue>
+          <rdfcache:XslTransform rdf:about="http://iridl.ldeo.columbia.edu/ontologies/xslt/RDFa2RDFXML.xsl"><rdfs:label>RDFa2RDFXML</rdfs:label>
+
+	  </rdfcache:XslTransform>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.w3.org/1999/xhtml/vocab#alternate"/>
+        <owl:allValuesFrom rdf:resource="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#RdfaType" />
+      </owl:Restriction>
+
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#hasFigure"/>
+        <owl:allValuesFrom rdf:resource="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#RdfaType" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <cross:makesThesePropertiesEquivalent rdf:resource="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#leadsTo" />
+    <cross:makesThesePropertiesEquivalent rdf:resource="file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#importsRdfa" />
+  </owl:Class>
+
+  <owl:Class rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#map_page">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://www.w3.org/1999/xhtml/vocab#alternate"/>
+        <owl:allValuesFrom rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#map_page" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
+      <owl:Restriction>
+
+        <owl:onProperty rdf:resource="http://www.w3.org/1999/xhtml/vocab#section"/>
+        <owl:allValuesFrom rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#map_page" />
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
 <rdfcache:ConstructRule ID="map2rss">
  <rdfcache:serql_text rdf:datatype="http://www.w3.org/2001/XMLSchema#;string">
 CONSTRUCT DISTINCT {canonicalurl} rss:link {fn:cast(canonicalurl,xsd:string)}
