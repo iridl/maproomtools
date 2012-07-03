@@ -14,10 +14,14 @@ if ($dir =~ m/maproom$/) {
 
 if (-e 'tab.xslt') {
     if ($maproom) {
-#      system("git pull");
-      system("/data/jdcorral/git_build/ingrid/maproomtools/gen_registry.pl");
-      system("/data/jdcorral/git_build/ingrid/maproomtools/runnewmaproom");
-      system("/data/jdcorral/git_build/ingrid/maproomtools/build_index.pl");
+      system("/data/jdcorral/git_build/ingrid/maproomtools/gen_registry.pl") == 0
+         or die "system failed: $?";
+      system("/data/jdcorral/git_build/ingrid/maproomtools/runnewmaproom.pl") == 0
+         or die "system failed: $?";
+      system("/data/jdcorral/git_build/ingrid/maproomtools/gen_maproomtop.pl") == 0
+         or die "system failed: $?";
+      system("/data/jdcorral/git_build/ingrid/maproomtools/build_index.pl") == 0
+         or die "system failed: $?";
       print "Updated new maproom\n";
     } else {
       print "You need to run this in a maproom directory.\n";
