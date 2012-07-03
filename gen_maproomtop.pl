@@ -28,8 +28,9 @@ maproomregistry=<file:///data/jdcorral/git_projects/ingrid/maproom/maproomregist
 EOQ
     close IP;
 my $pwd = cwd();
-print " In $pwd\n";
-system("rdfcache -construct=canonical_imports.serql -constructoutput=./top.nt -cache=maproomtopcache file:///$pwd/maproomregistry.owl > maproomtoplog.`date --iso-8601=minutes`");
+print "Generating maproomtop.owl In $pwd\n";
+
+system("rdfcache -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt file:///$pwd/maproomregistry.owl > maproomtoplog.`date --iso-8601=minutes`");
 
 # convert ntriples to rdfxml
 
