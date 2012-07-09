@@ -6,20 +6,20 @@
 # there are no arguments to this script
 
 use File::Basename;
+$maproomtoolsdir = dirname($0);
+
 
 if (@ARGV > 0 ) {
 	print "usage: build_index.pl with no arguments, in the dir called maproom with map pages below it, like ingrid/maproom\n";
 	exit;
 }
 
-print "Building index.hmtl files\n";
+print "Building index.html files\n";
 
 # copy the tab.xslt file from the maproomtools dir
-system ('cp /data/jdcorral/git_build/ingrid/maproomtools/tab.xslt .'); 
+system ("cp $maproomtoolsdir/tab.xslt ."); 
 
-system ('grep xhtml maproomregistry.owl > index.prelist');
-
-open IP, "<./index.prelist" or die "Can't open index.prelist: $!\n";
+open IP, "grep xhtml maproomregistry.owl |";
 
 while ( $ip = <IP> ) {
   chomp $ip;
@@ -31,11 +31,11 @@ while ( $ip = <IP> ) {
   $op = $ip;
   $op =~ s/xhtml/html/;
   $command = "java -jar /data/jdcorral/git_build/semantic_tools/libs/saxon-9.1.0.5.jar $ip tab.xslt > $op";
-#  print "$command \n";
+  print "$command \n";
   system ($command) == 0
      or die "system $command failed: $?";
 }
-# close and remove temporary file
+# close
 close IP;
-system ('/bin/rm index.prelist');
+
 
