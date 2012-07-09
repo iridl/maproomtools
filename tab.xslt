@@ -68,7 +68,7 @@
                     <!-- BUILD LIST OF SUB-SECTION URLS FOR A GROUP -->
                     <xsl:variable name="subsectionurls" as="xs:string*">
                        <xsl:sequence 
-                          select="$tabs/rdf:RDF/rdf:Description[ends-with(@rdf:about,$pageloc)]/vocab:section/@rdf:resource[1]"/>
+                          select="$tabs/rdf:RDF/rdf:Description[ends-with(replace(@rdf:about,'index\.html.*',''),$pageloc)]/vocab:section/@rdf:resource[1]"/>
                     </xsl:variable>
                       <!-- <div>
                       <xsl:value-of select="$subsectionurls" />
@@ -169,17 +169,17 @@
          </xsl:for-each> <!-- TABTERM -->
          </xsl:when>
          <xsl:otherwise> <!-- WHEN THERE IS NO TABTERM -->
-            <div id="tabs" class="ui-tabs-panel">
+            <div id="tabs" class="ui-tabs-panel notabterm">
                     <!-- BUILD LIST OF SUB-SECTION URLS -->
                     <xsl:variable name="subsectionurls" as="xs:string*">
                        <xsl:sequence 
-                          select="$tabs/rdf:RDF/rdf:Description[substring-after(@rdf:about,$pageloc)='']/vocab:section/@rdf:resource[1]"/>
+                          select="$tabs/rdf:RDF/rdf:Description[ends-with(replace(@rdf:about,'index\.html.*',''),$pageloc)]/vocab:section/@rdf:resource[1]"/>
                     </xsl:variable>
                       <!-- <div>
                       <xsl:value-of select="$subsectionurls" />
                       </div> -->
                     <!-- FIND THE SUB-SECTION URLS -->
-                    <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[substring-after(@rdf:about,$pageloc)='']/vocab:section/@rdf:resource[1]" >
+                    <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[ends-with(replace(@rdf:about,'index\.html.*',''),$pageloc)]/vocab:section/@rdf:resource[1]" >
                       <xsl:variable name="subsection" select="." />
                       <!-- FILTER OUT THE XHMTL PAGES AND CURRENT PAGE'S HTML -->
                       <xsl:if test="not(contains($subsection,'xhtml')) and not(contains($subsection, concat($pageloc,'index.html')))" >
