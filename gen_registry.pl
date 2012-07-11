@@ -38,11 +38,14 @@ print OP ("  <owl:Ontology rdf:about=\"\">\n");
 
 while ( $mp = <MP> ) {
   chomp $mp;
+
+$xvers = $mp;
+$xvers =~ s/\.html/.xhtml/;
+if ($xvers eq $mp || ! -f $xvers ){
 # strip off the leading ./
   $mp =~ s/.\///;
 # find the file extension
   my ($dir, $name, $ext) = fileparse($mp, @exts);
-
   if ($ext) {
 
 # open each file and check for string INGRID in 1st line
@@ -58,6 +61,7 @@ while ( $mp = <MP> ) {
     }
     close MP1;
   }  
+}
 }
 # close and remove temporary file
 close MP;
