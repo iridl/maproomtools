@@ -14,14 +14,14 @@ if (@ARGV > 0 ) {
 }
 
 # run SeRQL CONSTRUCT with maproomregistry.owl as the starting point
-
+# pulls out the canonical urls of all the importsRdfa files
 open IP, ">canonical_imports.serql";
 print IP <<EOQ;
 construct distinct
 {<http://iridl.ldeo.columbia.edu/proto/maproom/maproomtop.owl>} rdf:type {owl:Ontology} ; 
 owl:imports {<http://iridl.ldeo.columbia.edu/ontologies/iridlcontent.owl>}; maproomregistry:importsRdfa {y} 
 from
-{x} vocab:canonical {y}
+{} maproomregistry:importsRdfa {x} vocab:canonical {y}
 USING NAMESPACE
 vocab=<http://www.w3.org/1999/xhtml/vocab#>,
 maproomregistry=<file:///data/jdcorral/git_projects/ingrid/maproom/maproomregistry.owl#>
