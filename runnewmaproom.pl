@@ -19,6 +19,7 @@ print IP <<EOQ;
 construct {indexpage} vocab:section {canonical} maproomregistry:hasFile{mappage}
 iriterms:description {description}; 
 iriterms:title {title},
+[{canonical} maproom:Sort_Id {sortid}],
 [{mappage} iriterms:icon {icon}],
 [{mappage} maproomregistry:tablabel {lbl};
 maproomregistry:tabterm {tabterm},
@@ -28,6 +29,7 @@ maproomregistry:tabterm {tabterm},
 {mappage} iriterms:description {description};
 iriterms:title {title},
 {mappage} vocab:canonical {canonical},
+[{mappage} maproom:Sort_Id {sortid}],
 [{mappage} iriterms:icon {icon}],
  [{indexpage} maproom:tabterm {tabterm}, {mappage} iriterms:isDescribedBy {tabterm} iriterms:label {lbl}
 WHERE lang(title)=lang(lbl) ]

@@ -74,7 +74,7 @@
             </xsl:variable> 
             <div class="itemGroup"><xsl:value-of select="$group" disable-output-escaping="no" /></div>
                     <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[index-of($subsectionurls,@rdf:about) > 0]">
-                    <xsl:sort select="@rdf:about"/>
+                    <xsl:sort select="(maproom:Sort_Id | @rdf:about[not(../maproom:Sort_Id)])[1]"/>
 		    <xsl:variable name="canonicalelement">
                               <xsl:value-of select="."/>
 			      </xsl:variable>
@@ -140,7 +140,7 @@
          </xsl:when>
 	 <xsl:otherwise>
                     <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[index-of($subsectionurls,@rdf:about) > 0]">
-                    <xsl:sort select="@rdf:about"/>
+                    <xsl:sort select="(maproom:Sort_Id | @rdf:about[not(../maproom:Sort_Id)])[1]"/>
 		    <xsl:variable name="canonicalelement">
                               <xsl:value-of select="."/>
 			      </xsl:variable>
