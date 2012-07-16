@@ -30,7 +30,7 @@ while ( $ip = <IP> ) {
 # create the html version of $ip
   $op = $ip;
   $op =~ s/xhtml/html/;
-  $command = "java -jar /data/jdcorral/git_build/semantic_tools/libs/saxon-9.1.0.5.jar $ip tab.xslt > $op";
+  $command = "saxon_transform $ip tab.xslt > $op";
   print "$command \n";
   system ($command) == 0
      or die "system $command failed: $?";
