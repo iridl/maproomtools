@@ -7,7 +7,7 @@
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
             xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	    xmlns:iriterms="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#">
-<xsl:output method="xhtml" indent="yes" encoding="utf-8"/>
+<xsl:output method="xhtml" indent="yes" encoding="utf-8" doctype-system="about:legacy-compat" />
 
 <xsl:variable name="language" select="//@xml:lang"/> <!-- LANG OF PAGE WE ARE ON -->
 <xsl:variable name="defaultlanguage" select="'en'"/> <!-- DEFAULT LANG FOR SECTIONS -->
