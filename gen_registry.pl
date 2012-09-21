@@ -32,7 +32,7 @@ print OP ("  xmlns:rdf=\"http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#\"\n");
 print OP ("  xmlns:rdfs=\"http:\/\/www.w3.org\/2000\/01\/rdf-schema#\"\n");
 print OP ("  xmlns:owl=\"http:\/\/www.w3.org\/2002\/07\/owl#\"\n");
 print OP ("  xmlns:rdfcache=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#\"\n");
-print OP ("  xmlns:maproomregistry =\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#\">\n");
+print OP ("  xmlns:maproomregistry =\"file:\/\/\/data\/jdcorral\/git_projects\/maproom\/maproom\/maproomregistry.owl#\">\n");
 print OP ("  <owl:Ontology rdf:about=\"\">\n");
 
 
@@ -69,12 +69,12 @@ system ('/bin/rm maproomregistry.prelist');
 
 # prepare end of owl file
 print OP ("  <\/owl:Ontology>\n");
-print OP ("    <owl:ObjectProperty rdf:about=\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#importsRdfa\">\n");
-print OP ("        <rdfs:range rdf:resource=\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#RdfaType\"\/>\n");
+print OP ("    <owl:ObjectProperty rdf:about=\"file:\/\/\/data\/jdcorral\/git_projects\/maproom\/maproom\/maproomregistry.owl#importsRdfa\">\n");
+print OP ("        <rdfs:range rdf:resource=\"file:\/\/\/data\/jdcorral\/git_projects\/maproom\/maproom\/maproomregistry.owl#RdfaType\"\/>\n");
 print OP ("        <rdfs:subPropertyOf rdf:resource=\"http:\/\/www.w3.org\/2002\/07\/owl#imports\"\/>\n");
 print OP ("        <rdfs:isDefinedBy rdf:resource=\"\"\/>\n");
 print OP ("    <\/owl:ObjectProperty>\n");
-print OP ("  <owl:Class rdf:about=\"file:\/\/\/data\/jdcorral\/git_projects\/ingrid\/maproom\/maproomregistry.owl#RdfaType\">\n");
+print OP ("  <owl:Class rdf:about=\"file:\/\/\/data\/jdcorral\/git_projects\/maproom\/maproom\/maproomregistry.owl#RdfaType\">\n");
 print OP ("    <rdfs:subClassOf>\n");
 print OP ("      <owl:Restriction>\n");
 print OP ("        <owl:onProperty rdf:resource=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#hasXslTransformToRdf\"\/>\n");
