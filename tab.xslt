@@ -88,69 +88,14 @@
                             </xsl:otherwise>
                           </xsl:choose>
 		    </xsl:variable>
-<!-- figure out the file url use the hasFile that matches the current language, or use the first File  -->
-                     <xsl:variable name="fileurl">
-		       <xsl:choose>
-                          <xsl:when test="maproomregistry:hasFile[ends-with(@rdf:resource,$language)]">
-                                   <xsl:value-of select="maproomregistry:hasFile[ends-with(@rdf:resource,$language)][1]/@rdf:resource" />
-			  </xsl:when>
-			  <xsl:otherwise>
-			  <xsl:choose>
-                          <xsl:when test="maproomregistry:hasFile[ends-with(@rdf:resource,$defaultlanguage)]">
-                                   <xsl:value-of select="maproomregistry:hasFile[ends-with(@rdf:resource,$defaultlanguage)][1]/@rdf:resource" />
-			  </xsl:when>
-			  <xsl:otherwise>
-			     <xsl:value-of select="maproomregistry:hasFile[1]/@rdf:resource" />
-			  </xsl:otherwise>
-                       </xsl:choose>
-			  </xsl:otherwise>
-                       </xsl:choose>
-		     </xsl:variable>
-                     <xsl:variable name="fileelement" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$fileurl]" />
-		     <xsl:variable name="titleclass" >
-			  <xsl:choose>
-                          <xsl:when test="ends-with($fileurl,$language)">
-			     <xsl:text>carry titleLink</xsl:text>
-			     </xsl:when>
-			     <xsl:otherwise>
-			      <xsl:text>titleLink</xsl:text>
-			     </xsl:otherwise>
-			      </xsl:choose>
-		     </xsl:variable>
-                      <xsl:if test="$fileelement/maproomregistry:tabterm/@rdf:resource = $hr"> <!-- MAKE SURE THE MAPPAGE IS IN THE CURRENT TABTERM GROUP (THIS IS EFFECTIVELY THE INNER LOOP FOR A GROUP)-->
-                            <div class="item"><div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl}">
-                            <xsl:value-of select="$fileelement/iriterms:title"/>
-                            </a></div>
-                            <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
-                              <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,'http:')">
-                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl}"><img class="itemImage" src="{$fileelement/iriterms:icon/@rdf:resource}"/></a></div>
-                              </xsl:when>
-                              <xsl:otherwise>
-                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
-                              </xsl:otherwise>
-                            </xsl:choose>                            
-                            <div class="itemDescription">
-                            <xsl:value-of select="$fileelement/iriterms:description" disable-output-escaping="no"/></div>
-                            <div class="itemFooter"></div>
-                            </div>
-                    </xsl:if> <!-- MEMBER OF THE GROUP -->
-                  </xsl:for-each> 
-            </div>
-         </xsl:for-each> <!-- TABTERM -->
-         </xsl:when>
-	 <xsl:otherwise>
-                    <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[index-of($subsectionurls,@rdf:about) > 0]">
-                    <xsl:sort select="(maproom:Sort_Id | @rdf:about[not(../maproom:Sort_Id)])[1]"/>
-		    <xsl:variable name="canonicalelement">
-                              <xsl:value-of select="."/>
-			      </xsl:variable>
-		    <xsl:variable name="canonicalurl">
+                    <!-- Repeat test to make sure there are no repeated elements in @rdf:about, and strip leading slash of $pageloc -->
+		    <xsl:variable name="canonicalurl2">
 		            <xsl:choose>
-			    <xsl:when test="contains(@rdf:about,$pageloc)">
-                              <xsl:value-of select="substring-after(@rdf:about,$pageloc)"/>
+			    <xsl:when test="contains($canonicalurl,substring($pageloc,2))">
+                              <xsl:value-of select="substring-after($canonicalurl,substring($pageloc,2))"/>
 			    </xsl:when>
                             <xsl:otherwise>
-                              <xsl:value-of select="@rdf:about"/>
+                              <xsl:value-of select="$canonicalurl"/>
                             </xsl:otherwise>
                           </xsl:choose>
 		    </xsl:variable>
@@ -183,15 +128,92 @@
 			     </xsl:otherwise>
 			      </xsl:choose>
 		     </xsl:variable>
-                            <div class="item"><div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl}">
+                      <xsl:if test="$fileelement/maproomregistry:tabterm/@rdf:resource = $hr"> <!-- MAKE SURE THE MAPPAGE IS IN THE CURRENT TABTERM GROUP (THIS IS EFFECTIVELY THE INNER LOOP FOR A GROUP)-->
+                            <div class="item"><div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl2}">
                             <xsl:value-of select="$fileelement/iriterms:title"/>
                             </a></div>
                             <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
                               <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,'http:')">
-                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl}"><img class="itemImage" src="{$fileelement/iriterms:icon/@rdf:resource}"/></a></div>
+                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{$fileelement/iriterms:icon/@rdf:resource}"/></a></div>
                               </xsl:when>
                               <xsl:otherwise>
-                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                              </xsl:otherwise>
+                            </xsl:choose>                            
+                            <div class="itemDescription">
+                            <xsl:value-of select="$fileelement/iriterms:description" disable-output-escaping="no"/></div>
+                            <div class="itemFooter"></div>
+                            </div>
+                    </xsl:if> <!-- MEMBER OF THE GROUP -->
+                  </xsl:for-each> 
+            </div>
+         </xsl:for-each> <!-- TABTERM -->
+         </xsl:when>
+	 <xsl:otherwise>
+                    <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[index-of($subsectionurls,@rdf:about) > 0]">
+                    <xsl:sort select="(maproom:Sort_Id | @rdf:about[not(../maproom:Sort_Id)])[1]"/>
+		    <xsl:variable name="canonicalelement">
+                              <xsl:value-of select="."/>
+			      </xsl:variable>
+		    <xsl:variable name="canonicalurl">
+		            <xsl:choose>
+			    <xsl:when test="contains(@rdf:about,$pageloc)">
+                              <xsl:value-of select="substring-after(@rdf:about,$pageloc)"/>
+			    </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:value-of select="@rdf:about"/>
+                            </xsl:otherwise>
+                          </xsl:choose>
+		    </xsl:variable>
+               <!-- Repeat test to make sure there are no repeated elements in @rdf:about, and strip leading slash of $pageloc -->
+		    <xsl:variable name="canonicalurl2">
+		            <xsl:choose>
+			    <xsl:when test="contains($canonicalurl,substring($pageloc,2))">
+                              <xsl:value-of select="substring-after($canonicalurl,substring($pageloc,2))"/>
+			    </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:value-of select="$canonicalurl"/>
+                            </xsl:otherwise>
+                          </xsl:choose>
+		    </xsl:variable>
+<!-- figure out the file url use the hasFile that matches the current language, or use the first File  -->
+                     <xsl:variable name="fileurl">
+		       <xsl:choose>
+                          <xsl:when test="maproomregistry:hasFile[ends-with(@rdf:resource,$language)]">
+                                   <xsl:value-of select="maproomregistry:hasFile[ends-with(@rdf:resource,$language)][1]/@rdf:resource" />
+			  </xsl:when>
+			  <xsl:otherwise>
+			  <xsl:choose>
+                          <xsl:when test="maproomregistry:hasFile[ends-with(@rdf:resource,$defaultlanguage)]">
+                                   <xsl:value-of select="maproomregistry:hasFile[ends-with(@rdf:resource,$defaultlanguage)][1]/@rdf:resource" />
+			  </xsl:when>
+			  <xsl:otherwise>
+			     <xsl:value-of select="maproomregistry:hasFile[1]/@rdf:resource" />
+			  </xsl:otherwise>
+                       </xsl:choose>
+			  </xsl:otherwise>
+                       </xsl:choose>
+		     </xsl:variable>
+                     <xsl:variable name="fileelement" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$fileurl]" />
+		     <xsl:variable name="titleclass" >
+			  <xsl:choose>
+                          <xsl:when test="ends-with($fileurl,$language)">
+			     <xsl:text>carry titleLink</xsl:text>
+			     </xsl:when>
+			     <xsl:otherwise>
+			      <xsl:text>titleLink</xsl:text>
+			     </xsl:otherwise>
+			      </xsl:choose>
+		     </xsl:variable>
+                            <div class="item"><div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl2}">
+                            <xsl:value-of select="$fileelement/iriterms:title"/>
+                            </a></div>
+                            <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
+                              <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,'http:')">
+                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{$fileelement/iriterms:icon/@rdf:resource}"/></a></div>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
                               </xsl:otherwise>
                             </xsl:choose>                            
                             <div class="itemDescription">
