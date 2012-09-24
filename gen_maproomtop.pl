@@ -24,13 +24,13 @@ from
 {} maproomregistry:importsRdfa {x} vocab:canonical {y}
 USING NAMESPACE
 vocab=<http://www.w3.org/1999/xhtml/vocab#>,
-maproomregistry=<file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#>
+maproomregistry=<http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#>
 EOQ
     close IP;
 my $pwd = cwd();
 print "Generating maproomtop.owl In $pwd\n";
 
-system("rdfcache -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt file:///$pwd/maproomregistry.owl > maproomtoplog.`date --iso-8601=minutes`");
+system("rdfcache -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl > maproomtoplog.`date --iso-8601=minutes`");
 
 # convert ntriples to rdfxml
 
@@ -51,7 +51,7 @@ print OP <<"EOH";
   xmlns:owl="http://www.w3.org/2002/07/owl#"
   xmlns:rdfcache="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#"
   xmlns:cross="http://iridl.ldeo.columbia.edu/ontologies/iricrosswalk.owl#"
-  xmlns:maproomregistry ="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#">
+  xmlns:maproomregistry ="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#">
   <owl:Ontology rdf:about="">
 EOH
 # read through and copy top.xml 
@@ -67,25 +67,25 @@ close MP;
 # prepare end of owl file
 print OP ("  <\/owl:Ontology>\n");
 print OP << 'EOR';
- <owl:ObjectProperty rdf:about="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#importsRdfa">
-        <rdfs:range rdf:resource="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#RdfaType"/>
+ <owl:ObjectProperty rdf:about="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#importsRdfa">
+        <rdfs:range rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType"/>
         <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#imports"/>
         <rdfs:isDefinedBy rdf:resource=""/>
 
     </owl:ObjectProperty>
-     <owl:ObjectProperty rdf:about="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#leadsTo">
-        <rdfs:range rdf:resource="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#RdfaType"/>
+     <owl:ObjectProperty rdf:about="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#leadsTo">
+        <rdfs:range rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType"/>
         <rdfs:isDefinedBy rdf:resource=""/>
     </owl:ObjectProperty>
      <owl:ObjectProperty rdf:about="http://www.w3.org/1999/xhtml/vocab#section">
-        <rdfs:subPropertyOf rdf:resource="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#leadsTo"/>
+        <rdfs:subPropertyOf rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#leadsTo"/>
      </owl:ObjectProperty>
      <owl:ObjectProperty rdf:about="http://www.w3.org/1999/xhtml/vocab#alternate">
 
-        <rdfs:subPropertyOf rdf:resource="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#leadsTo"/>
+        <rdfs:subPropertyOf rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#leadsTo"/>
      </owl:ObjectProperty>
 
-  <owl:Class rdf:about="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#RdfaType">
+  <owl:Class rdf:about="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType">
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#hasXslTransformToRdf"/>
@@ -99,16 +99,16 @@ print OP << 'EOR';
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty rdf:resource="http://www.w3.org/1999/xhtml/vocab#alternate"/>
-        <owl:allValuesFrom rdf:resource="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#RdfaType" />
+        <owl:allValuesFrom rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType" />
       </owl:Restriction>
 
       <owl:Restriction>
         <owl:onProperty rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#hasFigure"/>
-        <owl:allValuesFrom rdf:resource="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#RdfaType" />
+        <owl:allValuesFrom rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType" />
       </owl:Restriction>
     </rdfs:subClassOf>
-    <cross:makesThesePropertiesEquivalent rdf:resource="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#leadsTo" />
-    <cross:makesThesePropertiesEquivalent rdf:resource="file:///data/jdcorral/git_projects/maproom/maproom/maproomregistry.owl#importsRdfa" />
+    <cross:makesThesePropertiesEquivalent rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#leadsTo" />
+    <cross:makesThesePropertiesEquivalent rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#importsRdfa" />
   </owl:Class>
 
   <owl:Class rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#map_page">
