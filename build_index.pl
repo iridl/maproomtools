@@ -8,7 +8,6 @@
 use File::Basename;
 $maproomtoolsdir = dirname($0);
 
-
 if (@ARGV > 0 ) {
 	print "usage: build_index.pl with no arguments, in the dir called maproom with map pages below it, like ingrid/maproom\n";
 	exit;

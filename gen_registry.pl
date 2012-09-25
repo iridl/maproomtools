@@ -19,7 +19,7 @@ my @exts = qw(.en .es .fr .html .xhtml);
 
 print "Building maproomregistry.\n";
 
-system ('find ./ -exec grep -l XHTML+RDFa "{}" \; | sort > maproomregistry.prelist');
+system ('find . -exec grep -l XHTML+RDFa "{}" \; | sort > maproomregistry.prelist');
 
 open MP, "<./maproomregistry.prelist" or die "Can't open maproomregistry.prelist: $!\n";
 open OP, ">./maproomregistry.owl" or die "Can't open maproomregistry.owl: $!\n";

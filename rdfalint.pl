@@ -7,8 +7,7 @@ if ($#ARGV != 0 ) {
 	exit;
 }
   @args = ("xsltproc", "--novalid", "http://iridl.ldeo.columbia.edu/ontologies/xslt/RDFa2RDFXML.xsl", $ARGV[0]);
-  system(@args) == 0
-      or die "system call failed: $?";
+  system(@args) == 0 or die "system call failed: $?";
 
 
 

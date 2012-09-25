@@ -6,12 +6,12 @@ use Cwd;
 
 print "Gathering rdfa triples\n";
 
-system("date --iso-8601=minutes");
+system("date");
 system("/bin/rm -rf newmaproomcache/*");
 
 my $pwd = cwd();
 print " In $pwd\n";
-system("rdfcache -cache=newmaproomcache file:///$pwd/maproomregistry.owl > newmaproomlog.`date --iso-8601=minutes`");
+system("rdfcache -cache=newmaproomcache file:///$pwd/maproomregistry.owl");
 
 #use trig file in newmaproomcache
 open IP, ">maproom_section_index.serql";
@@ -43,9 +43,9 @@ EOQ
 
 print ("Running CONSTRUCT query for tabs.xml\n");
 
-system("rdfcache -cache=newmaproomcache -construct=maproom_section_index.serql -constructoutput=./tabs.nt file:///$pwd/maproomregistry.owl > constructlog.`date --iso-8601=minutes`");
+system("rdfcache -cache=newmaproomcache -construct=maproom_section_index.serql -constructoutput=./tabs.nt file:///$pwd/maproomregistry.owl");
 
 #convert tabs.nt to tabs.xml
 system("rapper -q -i ntriples -o rdfxml-abbrev tabs.nt > tabs.xml");
 
-system("date --iso-8601=minutes\n");
+system("date");

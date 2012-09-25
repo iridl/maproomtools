@@ -30,7 +30,7 @@ EOQ
 my $pwd = cwd();
 print "Generating maproomtop.owl In $pwd\n";
 
-system("rdfcache -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl > maproomtoplog.`date --iso-8601=minutes`");
+system("rdfcache -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl");
 
 # convert ntriples to rdfxml
 
