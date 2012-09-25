@@ -11,7 +11,7 @@ system("/bin/rm -rf newmaproomcache/*");
 
 my $pwd = cwd();
 print " In $pwd\n";
-system("rdfcache -cache=newmaproomcache file:///$pwd/maproomregistry.owl");
+system("rdfcache -cache=newmaproomcache file:///$pwd/maproomregistry.owl >/dev/null");
 
 #use trig file in newmaproomcache
 open IP, ">maproom_section_index.serql";
@@ -43,7 +43,7 @@ EOQ
 
 print ("Running CONSTRUCT query for tabs.xml\n");
 
-system("rdfcache -cache=newmaproomcache -construct=maproom_section_index.serql -constructoutput=./tabs.nt file:///$pwd/maproomregistry.owl");
+system("rdfcache -cache=newmaproomcache -construct=maproom_section_index.serql -constructoutput=./tabs.nt file:///$pwd/maproomregistry.owl >/dev/null");
 
 #convert tabs.nt to tabs.xml
 system("rapper -q -i ntriples -o rdfxml-abbrev tabs.nt > tabs.xml");
