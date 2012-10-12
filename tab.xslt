@@ -121,10 +121,10 @@
 		     <xsl:variable name="titleclass" >
 			  <xsl:choose>
                           <xsl:when test="ends-with($fileurl,$language)">
-			     <xsl:text>carry titleLink</xsl:text>
+			     <xsl:text>carryLanguage carry titleLink</xsl:text>
 			     </xsl:when>
 			     <xsl:otherwise>
-			      <xsl:text>titleLink</xsl:text>
+			      <xsl:text>carry titleLink</xsl:text>
 			     </xsl:otherwise>
 			      </xsl:choose>
 		     </xsl:variable>
@@ -198,10 +198,10 @@
 		     <xsl:variable name="titleclass" >
 			  <xsl:choose>
                           <xsl:when test="ends-with($fileurl,$language)">
-			     <xsl:text>carry titleLink</xsl:text>
+			     <xsl:text>carryLanguage carry titleLink</xsl:text>
 			     </xsl:when>
 			     <xsl:otherwise>
-			      <xsl:text>titleLink</xsl:text>
+			      <xsl:text>carry titleLink</xsl:text>
 			     </xsl:otherwise>
 			      </xsl:choose>
 		     </xsl:variable>
