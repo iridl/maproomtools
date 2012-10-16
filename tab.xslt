@@ -130,7 +130,7 @@
 		     </xsl:variable>
                       <xsl:if test="$fileelement/maproomregistry:tabterm/@rdf:resource = $hr"> <!-- MAKE SURE THE MAPPAGE IS IN THE CURRENT TABTERM GROUP (THIS IS EFFECTIVELY THE INNER LOOP FOR A GROUP)-->
                             <div class="item"><div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl2}">
-                            <xsl:value-of select="$fileelement/iriterms:title"/>
+                            <xsl:value-of select="$fileelement/iriterms:title[@xml:lang=$language or 1]"/>
                             </a></div>
                             <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
                               <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,'http:')">
@@ -141,7 +141,7 @@
                               </xsl:otherwise>
                             </xsl:choose>                            
                             <div class="itemDescription">
-                            <xsl:value-of select="$fileelement/iriterms:description" disable-output-escaping="no"/></div>
+                            <xsl:value-of select="$fileelement/iriterms:description[@xml:lang=$language or 1]" disable-output-escaping="no"/></div>
                             <div class="itemFooter"></div>
                             </div>
                     </xsl:if> <!-- MEMBER OF THE GROUP -->
@@ -206,7 +206,7 @@
 			      </xsl:choose>
 		     </xsl:variable>
                             <div class="item"><div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl2}">
-                            <xsl:value-of select="$fileelement/iriterms:title"/>
+                            <xsl:value-of select="$fileelement/iriterms:title[@xml:lang=$language or 1]"/>
                             </a></div>
                             <xsl:choose><!-- CHECK ICON; IF FILE:///, USE LOCAL PATH -->
                               <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,'http:')">
@@ -217,7 +217,7 @@
                               </xsl:otherwise>
                             </xsl:choose>                            
                             <div class="itemDescription">
-                            <xsl:value-of select="$fileelement/iriterms:description" disable-output-escaping="no"/></div>
+                            <xsl:value-of select="$fileelement/iriterms:description[@xml:lang=$language or 1]" disable-output-escaping="no"/></div>
                             <div class="itemFooter"></div>
                             </div>
                   </xsl:for-each> 
