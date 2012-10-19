@@ -15,7 +15,7 @@ if (@ARGV > 0 ) {
 # check for files with rdfa content and are not backup files from emacs or being tagged
 # (e.g. ends with .html or .en or .es or .xx, not .en~ or .en.20120506)
 
-my @exts = qw(.en .es .fr .html .xhtml);
+my @exts = qw(.en .es .fr .id .html .xhtml);
 
 print "Building maproomregistry.\n";
 
