@@ -150,6 +150,7 @@
          </xsl:for-each> <!-- TABTERM -->
          </xsl:when>
 	 <xsl:otherwise>
+			            <div class="ui-tabs-panel">
                     <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[index-of($subsectionurls,@rdf:about) > 0]">
                     <xsl:sort select="(maproom:Sort_Id | @rdf:about[not(../maproom:Sort_Id)])[1]"/>
 		    <xsl:variable name="canonicalelement">
@@ -221,6 +222,7 @@
                             <div class="itemFooter"></div>
                             </div>
                   </xsl:for-each> 
+		  </div>
 	 </xsl:otherwise>
          </xsl:choose>
     </div>
