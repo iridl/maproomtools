@@ -34,6 +34,7 @@ print OP ("  xmlns:owl=\"http:\/\/www.w3.org\/2002\/07\/owl#\"\n");
 print OP ("  xmlns:rdfcache=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#\"\n");
 print OP ("  xmlns:maproomregistry =\"http:\/\/iridl.ldeo.columbia.edu\/maproom\/maproomregistry.owl#\">\n");
 print OP ("  <owl:Ontology rdf:about=\"\">\n");
+print OP ("  <maproomregistry:importsRdfa rdf:resource=\"Imports\/maproom_bulletins.html.en\"\/>\n");
 
 
 while ( $mp = <MP> ) {
