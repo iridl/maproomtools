@@ -55,7 +55,7 @@ print GI "maproom\/tabs.xml\n";
 print GI "maproom\/top.nt\n";
 print GI "maproom\/top.xml\n";
 print GI "maproom\/version.xml\n";
-print GI "maproom\/build.tag\n";
+print GI "build.tag\n";
 print GI "*~\n";
 
 close GI;
