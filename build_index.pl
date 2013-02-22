@@ -45,6 +45,6 @@ close IP;
 # close .gitignore
 close GI;
 # sort .gitignore and remove duplicates
-system ("sort -u ../.gitignore -o ../.gitignore");
+system ("sort -d -f -u ../.gitignore -o ../.gitignore");
 
 
