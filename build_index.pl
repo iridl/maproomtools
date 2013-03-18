@@ -19,6 +19,8 @@ print "Building index.html files\n";
 # copy the tab.xslt file from the maproomtools dir
 system ("cp $maproomtoolsdir/tab.xslt ."); 
 
+system ("cp ../.gitignore.orig ../.gitignore");
+
 open IP, "grep xhtml maproomregistry.owl |";
 
 # append to .gitignore file in maproom git root dir
@@ -34,7 +36,7 @@ while ( $ip = <IP> ) {
   $op = $ip;
   $op =~ s/xhtml/html/;
 # send html version filenames to a .gitignore file
-  print GI "maproom\/$op\n";
+  print GI "\/maproom\/$op\n";
   $command = "saxon_transform $ip tab.xslt > $op";
   print "$command \n";
   system ($command) == 0
