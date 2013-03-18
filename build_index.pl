@@ -45,6 +45,6 @@ close IP;
 # close .gitignore
 close GI;
 # sort .gitignore and remove duplicates
-system ("sort -u <../.gitignore >../.gitignore.tmp");
+system ("LC_ALL=c sort -u <../.gitignore >../.gitignore.tmp");
 system ("mv -f ../.gitignore.tmp ../.gitignore");
 
