@@ -46,7 +46,7 @@
                     <!-- BUILD LIST OF SUB-SECTION URLS -->
                     <xsl:variable name="subsectionurls" as="xs:string*">
                        <xsl:sequence 
-                          select="$tabs/rdf:RDF/rdf:Description[ends-with(replace(@rdf:about,'index\.html.*',''),$pageloc)]/vocab:section/@rdf:resource[1]"/>
+                          select="$tabs/rdf:RDF/rdf:Description[ends-with(@rdf:about,$pageloc)]/vocab:section/@rdf:resource[1]"/>
                     </xsl:variable>
                       <!-- <div class="subsectionurls">
                       <xsl:value-of select="$subsectionurls" />
@@ -102,13 +102,13 @@
 <!-- figure out the file url use the hasFile that matches the current language, or use the first File  -->
                      <xsl:variable name="fileurl">
 		       <xsl:choose>
-                          <xsl:when test="maproomregistry:hasFile[ends-with(@rdf:resource,$language)]">
-                                   <xsl:value-of select="maproomregistry:hasFile[ends-with(@rdf:resource,$language)][1]/@rdf:resource" />
+                          <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=current()/maproomregistry:hasFile/@rdf:resource]/iriterms:title[@xml:lang=$language]">
+                                   <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=current()/maproomregistry:hasFile/@rdf:resource][iriterms:title/@xml:lang=$language]/@rdf:about" />
 			  </xsl:when>
 			  <xsl:otherwise>
 			  <xsl:choose>
-                          <xsl:when test="maproomregistry:hasFile[ends-with(@rdf:resource,$defaultlanguage)]">
-                                   <xsl:value-of select="maproomregistry:hasFile[ends-with(@rdf:resource,$defaultlanguage)][1]/@rdf:resource" />
+                          <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=current()/maproomregistry:hasFile/@rdf:resource]/iriterms:title[@xml:lang=$defaultlanguage]">
+                                   <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=current()/maproomregistry:hasFile/@rdf:resource][iriterms:title/@xml:lang=$defaultlanguage]/@rdf:about" />
 			  </xsl:when>
 			  <xsl:otherwise>
 			     <xsl:value-of select="maproomregistry:hasFile[1]/@rdf:resource" />
@@ -120,7 +120,7 @@
                      <xsl:variable name="fileelement" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$fileurl]" />
 		     <xsl:variable name="titleclass" >
 			  <xsl:choose>
-                          <xsl:when test="ends-with($fileurl,$language)">
+                          <xsl:when test="$fileelement/iriterms:title[@xml:lang=$language]">
 			     <xsl:text>carryLanguage carry titleLink</xsl:text>
 			     </xsl:when>
 			     <xsl:otherwise>
@@ -180,13 +180,13 @@
 <!-- figure out the file url use the hasFile that matches the current language, or use the first File  -->
                      <xsl:variable name="fileurl">
 		       <xsl:choose>
-                          <xsl:when test="maproomregistry:hasFile[ends-with(@rdf:resource,$language)]">
-                                   <xsl:value-of select="maproomregistry:hasFile[ends-with(@rdf:resource,$language)][1]/@rdf:resource" />
+                          <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=current()/maproomregistry:hasFile/@rdf:resource]/iriterms:title[@xml:lang=$language]">
+                                   <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=current()/maproomregistry:hasFile/@rdf:resource][iriterms:title/@xml:lang=$language]/@rdf:about" />
 			  </xsl:when>
 			  <xsl:otherwise>
 			  <xsl:choose>
-                          <xsl:when test="maproomregistry:hasFile[ends-with(@rdf:resource,$defaultlanguage)]">
-                                   <xsl:value-of select="maproomregistry:hasFile[ends-with(@rdf:resource,$defaultlanguage)][1]/@rdf:resource" />
+                          <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=current()/maproomregistry:hasFile/@rdf:resource]/iriterms:title[@xml:lang=$defaultlanguage]">
+                                   <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=current()/maproomregistry:hasFile/@rdf:resource][iriterms:title/@xml:lang=$defaultlanguage]/@rdf:about" />
 			  </xsl:when>
 			  <xsl:otherwise>
 			     <xsl:value-of select="maproomregistry:hasFile[1]/@rdf:resource" />
@@ -198,7 +198,7 @@
                      <xsl:variable name="fileelement" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$fileurl]" />
 		     <xsl:variable name="titleclass" >
 			  <xsl:choose>
-                          <xsl:when test="ends-with($fileurl,$language)">
+                          <xsl:when test="$fileelement/iriterms:title[@xml:lang=$language]">
 			     <xsl:text>carryLanguage carry titleLink</xsl:text>
 			     </xsl:when>
 			     <xsl:otherwise>
