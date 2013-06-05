@@ -136,8 +136,11 @@
                               <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,'http:')">
                                 <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{$fileelement/iriterms:icon/@rdf:resource}"/></a></div>
                               </xsl:when>
-                              <xsl:otherwise>
+                              <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,$pageloc)">
                                 <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,'file://')}"/></a></div>
                               </xsl:otherwise>
                             </xsl:choose>                            
                             <div class="itemDescription">
@@ -213,8 +216,11 @@
                               <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,'http:')">
                                 <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{$fileelement/iriterms:icon/@rdf:resource}"/></a></div>
                               </xsl:when>
-                              <xsl:otherwise>
+                              <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,$pageloc)">
                                 <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,'file://')}"/></a></div>
                               </xsl:otherwise>
                             </xsl:choose>                            
                             <div class="itemDescription">
