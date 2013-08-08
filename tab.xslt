@@ -22,6 +22,7 @@
     <xsl:template match="*[@class='rightcol tabbedentries']"> <!-- EXPAND THE CONTENT IN THE TABBEDENTRIES SECTION -->
       <!-- FIND THE PAGE WE ARE ON ( WHICH IS ALSO THE SECTION) AND SET UP NAVIGATION -->
       <xsl:variable name="pageloc" select="./@about" />
+      <xsl:variable name="pagedir" select="replace(./@about,'/[^/]+\.html$','/')" />
       <div class="rightcol">
       <div class="ui-tabs">
          <ul class="ui-tabs-nav">
@@ -80,8 +81,8 @@
 			      </xsl:variable>
 		    <xsl:variable name="canonicalurl">
 		            <xsl:choose>
-			    <xsl:when test="contains(@rdf:about,$pageloc)">
-                              <xsl:value-of select="substring-after(@rdf:about,$pageloc)"/>
+			    <xsl:when test="contains(@rdf:about,$pagedir)">
+                              <xsl:value-of select="substring-after(@rdf:about,$pagedir)"/>
 			    </xsl:when>
                             <xsl:otherwise>
                               <xsl:value-of select="@rdf:about"/>
@@ -161,8 +162,8 @@
 			      </xsl:variable>
 		    <xsl:variable name="canonicalurl">
 		            <xsl:choose>
-			    <xsl:when test="contains(@rdf:about,$pageloc)">
-                              <xsl:value-of select="substring-after(@rdf:about,$pageloc)"/>
+			    <xsl:when test="contains(@rdf:about,$pagedir)">
+                              <xsl:value-of select="substring-after(@rdf:about,$pagedir)"/>
 			    </xsl:when>
                             <xsl:otherwise>
                               <xsl:value-of select="@rdf:about"/>
