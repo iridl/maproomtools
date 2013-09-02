@@ -28,7 +28,13 @@
          <ul class="ui-tabs-nav">
             <xsl:for-each select="*[attribute::rel='maproom:tabterm']">
                  <xsl:variable name="hr" select="@href"/>
-                 <li><a href="#tabs-{position()}">
+                 <xsl:element name="li">
+		 <xsl:if test="./@class">
+		 <xsl:attribute name="class">
+		 <xsl:value-of select="./@class" />
+		 </xsl:attribute>
+		 </xsl:if>
+		 <a href="#tabs-{position()}">
                      <xsl:choose> <!-- CHECK FOR LANGUAGE MATCH FOR TAB LABEL -->
                        <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang=$language]">
                          <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang=$language]"/>
@@ -37,7 +43,8 @@
                          <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang='en']"/>
                        </xsl:otherwise> 
                      </xsl:choose>
-                 </a></li>
+                 </a>
+		 </xsl:element>
             </xsl:for-each>
          </ul>
 
