@@ -141,8 +141,8 @@
                             <xsl:value-of select="($fileelement/iriterms:title[@xml:lang=$language],$fileelement/iriterms:title[@xml:lang=$defaultlanguage],$fileelement/iriterms:title[1])[1]"/>
                             </a></div>
                             <xsl:choose><!-- CHECK ICON; IF local, USE LOCAL PATH, if otherwise file:///, start with / , otherwise full url -->
-                              <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,$pageloc)">
-                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                              <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,$pagedir)">
+                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pagedir)}"/></a></div>
                               </xsl:when>
                               <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,'file://')">
                                 <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,'file://')}"/></a></div>
@@ -221,8 +221,8 @@
                             <xsl:value-of select="($fileelement/iriterms:title[@xml:lang=$language],$fileelement/iriterms:title[@xml:lang=$defaultlanguage],$fileelement/iriterms:title[1])[1]"/>
                             </a></div>
                             <xsl:choose><!-- CHECK ICON; IF local, USE LOCAL PATH, if otherwise file:///, start with / , otherwise full url -->
-                              <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,$pageloc)">
-                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pageloc)}"/></a></div>
+                              <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,$pagedir)">
+                                <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,$pagedir)}"/></a></div>
                               </xsl:when>
                               <xsl:when test="contains($fileelement/iriterms:icon/@rdf:resource,'file://')">
                                 <div class="itemIcon"><a class="{$titleclass}" href="{$canonicalurl2}"><img class="itemImage" src="{substring-after($fileelement/iriterms:icon/@rdf:resource,'file://')}"/></a></div>
