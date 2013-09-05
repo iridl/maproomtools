@@ -34,7 +34,7 @@ system("rdfcache -cache=newmaproomcache -construct=canonical_imports.serql -cons
 
 # convert ntriples to rdfxml
 
-system('rapper -q -i ntriples -o rdfxml-abbrev top.nt > top.xml');
+system("rapper -q -i ntriples -o rdfxml-abbrev -f 'xmlns:terms=\"http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#\"' -f 'xmlns:reg=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#\"' -f 'xmlns:map=\"http://iridl.ldeo.columbia.edu/maproom/maproom.owl#\"' top.nt > top.xml");
 
 # read from top.xml and add necessary content to make maproomtop.owl
 

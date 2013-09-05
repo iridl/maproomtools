@@ -46,6 +46,6 @@ print ("Running CONSTRUCT query for tabs.xml\n");
 system("rdfcache -cache=newmaproomcache -construct=maproom_section_index.serql -constructoutput=./tabs.nt file:///$pwd/maproomregistry.owl >/dev/null");
 
 #convert tabs.nt to tabs.xml
-system("rapper -q -i ntriples -o rdfxml-abbrev tabs.nt > tabs.xml");
+system("rapper -q -i ntriples -o rdfxml-abbrev -f 'xmlns:terms=\"http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#\"' -f 'xmlns:reg=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#\"' -f 'xmlns:map=\"http://iridl.ldeo.columbia.edu/maproom/maproom.owl#\"' tabs.nt > tabs.xml");
 
 system("date");
