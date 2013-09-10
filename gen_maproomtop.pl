@@ -51,7 +51,7 @@ print OP <<"EOH";
   xmlns:owl="http://www.w3.org/2002/07/owl#"
   xmlns:rdfcache="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#"
   xmlns:cross="http://iridl.ldeo.columbia.edu/ontologies/iricrosswalk.owl#"
-  xmlns:maproomregistry ="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#">
+  xmlns:reg ="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#">
   <owl:Ontology rdf:about="">
 EOH
 # read through and copy top.xml 
@@ -84,7 +84,7 @@ print OP << 'EOR';
 
         <rdfs:subPropertyOf rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#leadsTo"/>
      </owl:ObjectProperty>
-    <owl:ObjectProperty rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#hasFigure>
+    <owl:ObjectProperty rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#hasFigure">
     <rdfs:subPropertyOf rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#dependsOn"/>
      </owl:ObjectProperty>
 
@@ -104,7 +104,8 @@ print OP << 'EOR';
         <owl:onProperty rdf:resource="http://www.w3.org/1999/xhtml/vocab#alternate"/>
         <owl:allValuesFrom rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType" />
       </owl:Restriction>
-
+    </rdfs:subClassOf>
+    <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#hasFigure"/>
         <owl:allValuesFrom rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType" />
