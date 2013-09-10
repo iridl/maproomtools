@@ -84,6 +84,9 @@ print OP << 'EOR';
 
         <rdfs:subPropertyOf rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#leadsTo"/>
      </owl:ObjectProperty>
+    <owl:ObjectProperty rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#hasFigure>
+    <rdfs:subPropertyOf rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#dependsOn"/>
+     </owl:ObjectProperty>
 
   <owl:Class rdf:about="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType">
     <rdfs:subClassOf>
