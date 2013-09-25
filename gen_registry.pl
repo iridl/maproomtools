@@ -37,7 +37,9 @@ print OP ("  <owl:Ontology rdf:about=\"\">\n");
 if( -f "Imports/moremetadata.owl" ){
 print OP ("  <owl:imports rdf:resource=\"Imports\/moremetadata.owl\"\/>\n");
 }
+if( -f "Imports/maproom_bulletins.html" ){
 print OP ("  <maproomregistry:importsRdfa rdf:resource=\"Imports\/maproom_bulletins.html\"\/>\n");
+}
 
 
 while ( $mp = <MP> ) {
