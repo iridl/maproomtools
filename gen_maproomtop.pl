@@ -1,16 +1,14 @@
 #!/usr/bin/perl
-
 # maproomtop.owl based on relative file names from maproom/maproom/
 # run this in the maproom/maproom dir
 # there are no arguments to this script
 # you must have rdfcache in your path
-
 use File::Basename;
 use Cwd;
 
-if (@ARGV > 0 ) {
-	print "usage: gen_maproomtop.pl with no arguments, in the dir called maproom with map pages below it, like maproom/maproom\n";
-	exit;
+my $ruleset = "owl-max-optimized";
+if ($#ARGV+1 > 0) {
+   $ruleset = $ARGV[0];
 }
 
 # run SeRQL CONSTRUCT with maproomregistry.owl as the starting point
@@ -30,7 +28,7 @@ EOQ
 my $pwd = cwd();
 print "Generating maproomtop.owl In $pwd\n";
 
-system("rdfcache -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt file:///$pwd/maproomregistry.owl >/dev/null");
+system("rdfcache -ruleset='$ruleset' -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt file:///$pwd/maproomregistry.owl >>newmaproomcache/rdfcachelog.txt");
 
 # convert ntriples to rdfxml
 

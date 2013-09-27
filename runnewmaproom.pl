@@ -1,7 +1,11 @@
 #!/usr/bin/perl
 # local version, all maproom pages have relative paths. this must be run in the directory that has all the maproom subdirs, like /data/jdcorral/iri_html/ingrid/maproom
-
 use Cwd;
+
+my $ruleset = "owl-max-optimized";
+if ($#ARGV+1 > 0) {
+   $ruleset = $ARGV[0];
+}
 
 system("date");
 my $pwd = cwd();
@@ -10,7 +14,7 @@ system("rm -rf newmaproomcache");
 system("mkdir -p newmaproomcache");
 
 print "Gathering rdfa triples\n";
-system("rdfcache -cache=newmaproomcache file:///$pwd/maproomregistry.owl >newmaproomcache/rdfcachelog.txt");
+system("rdfcache -ruleset='$ruleset' -cache=newmaproomcache file:///$pwd/maproomregistry.owl >>newmaproomcache/rdfcachelog.txt");
 
 print ("Running CONSTRUCT query for tabs.xml\n");
 #use trig file in newmaproomcache
@@ -40,7 +44,7 @@ iriterms = <http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#>,
 maproom = <http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#>
 EOQ
 close IP;
-system("rdfcache -cache=newmaproomcache -construct=maproom_section_index.serql -constructoutput=./tabs.nt file:///$pwd/maproomregistry.owl >newmaproomcache/rdfcachelog2.txt");
+system("rdfcache -ruleset='$ruleset' -cache=newmaproomcache -construct=maproom_section_index.serql -constructoutput=./tabs.nt file:///$pwd/maproomregistry.owl >>newmaproomcache/rdfcachelog.txt");
 
 print ("Converting tabs.nt to tabs.xml\n");
 system("rapper -q -i ntriples -o rdfxml-abbrev -f 'xmlns:terms=\"http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#\"' -f 'xmlns:reg=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#\"' -f 'xmlns:map=\"http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#\"' -f 'xmlns:vocab=\"http://www.w3.org/1999/xhtml/vocab#\"' tabs.nt > tabs.xml");

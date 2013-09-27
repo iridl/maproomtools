@@ -7,11 +7,6 @@
 
 use File::Basename;
 
-if (@ARGV > 0 ) {
-	print "usage: gen_registry.pl with no arguments, in the dir called maproom with map pages below it, like ingrid/maproom\n";
-	exit;
-}
-
 # check for files with rdfa content and are not backup files from emacs or being tagged
 # (e.g. ends with .html or .en or .es or .xx, not .en~ or .en.20120506)
 
