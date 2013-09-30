@@ -23,17 +23,17 @@ open OP, ">./maproomregistry.owl" or die "Can't open maproomregistry.owl: $!\n";
 
 print OP ("<?xml version=\"1.0\"?>\n");
 print OP ("<rdf:RDF\n");
-print OP ("  xmlns:rdf=\"http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#\"\n");
-print OP ("  xmlns:rdfs=\"http:\/\/www.w3.org\/2000\/01\/rdf-schema#\"\n");
-print OP ("  xmlns:owl=\"http:\/\/www.w3.org\/2002\/07\/owl#\"\n");
-print OP ("  xmlns:rdfcache=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#\"\n");
-print OP ("  xmlns:maproomregistry =\"http:\/\/iridl.ldeo.columbia.edu\/maproom\/maproomregistry.owl#\">\n");
+print OP ("  xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n");
+print OP ("  xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n");
+print OP ("  xmlns:owl=\"http://www.w3.org/2002/07/owl#\"\n");
+print OP ("  xmlns:rdfcache=\"http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#\"\n");
+print OP ("  xmlns:maproomregistry =\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#\">\n");
 print OP ("  <owl:Ontology rdf:about=\"\">\n");
 if( -f "Imports/moremetadata.owl" ){
-print OP ("  <owl:imports rdf:resource=\"Imports\/moremetadata.owl\"\/>\n");
+print OP ("  <owl:imports rdf:resource=\"Imports/moremetadata.owl\"/>\n");
 }
 if( -f "Imports/maproom_bulletins.html" ){
-print OP ("  <maproomregistry:importsRdfa rdf:resource=\"Imports\/maproom_bulletins.html\"\/>\n");
+print OP ("  <maproomregistry:importsRdfa rdf:resource=\"Imports/maproom_bulletins.html\"/>\n");
 }
 
 
@@ -44,7 +44,7 @@ $xvers = $mp;
 $xvers =~ s/\.html/.xhtml/;
 if ($xvers eq $mp || ! -f $xvers ){
 # strip off the leading ./
-  $mp =~ s/.\///;
+  $mp =~ s/.///;
 # find the file extension
   my ($dir, $name, $ext) = fileparse($mp, @exts);
   if ($ext) {
@@ -55,10 +55,10 @@ if ($xvers eq $mp || ! -f $xvers ){
     chomp $mp1;
     if ($mp1 =~ m/INGRID/i) {
       print ($mp1,"\n");
-      $url = "http:\/\/iridl.ldeo.columbia.edu\/maproom\/".$mp;
-      print OP ("    <maproomregistry:importsRdfa rdf:resource=\"",$url,"\"\/>\n");
+      $url = "http://iridl.ldeo.columbia.edu/maproom/".$mp;
+      print OP ("    <maproomregistry:importsRdfa rdf:resource=\"",$url,"\"/>\n");
     } else {
-      print OP ("    <maproomregistry:importsRdfa rdf:resource=\"",$mp,"\"\/>\n");
+      print OP ("    <maproomregistry:importsRdfa rdf:resource=\"",$mp,"\"/>\n");
     }
     close MP1;
   }  
@@ -69,23 +69,23 @@ close MP;
 system ('/bin/rm maproomregistry.prelist');
 
 # prepare end of owl file
-print OP ("  <\/owl:Ontology>\n");
-print OP ("    <owl:ObjectProperty rdf:about=\"http:\/\/iridl.ldeo.columbia.edu\/maproom\/maproomregistry.owl#importsRdfa\">\n");
-print OP ("        <rdfs:range rdf:resource=\"http:\/\/iridl.ldeo.columbia.edu\/maproom\/maproomregistry.owl#RdfaType\"\/>\n");
-print OP ("        <rdfs:subPropertyOf rdf:resource=\"http:\/\/www.w3.org\/2002\/07\/owl#imports\"\/>\n");
-print OP ("        <rdfs:isDefinedBy rdf:resource=\"\"\/>\n");
-print OP ("    <\/owl:ObjectProperty>\n");
-print OP ("  <owl:Class rdf:about=\"http:\/\/iridl.ldeo.columbia.edu\/maproom\/maproomregistry.owl#RdfaType\">\n");
+print OP ("  </owl:Ontology>\n");
+print OP ("    <owl:ObjectProperty rdf:about=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#importsRdfa\">\n");
+print OP ("        <rdfs:range rdf:resource=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType\"/>\n");
+print OP ("        <rdfs:subPropertyOf rdf:resource=\"http://www.w3.org/2002/07/owl#imports\"/>\n");
+print OP ("        <rdfs:isDefinedBy rdf:resource=\"\"/>\n");
+print OP ("    </owl:ObjectProperty>\n");
+print OP ("  <owl:Class rdf:about=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType\">\n");
 print OP ("    <rdfs:subClassOf>\n");
 print OP ("      <owl:Restriction>\n");
-print OP ("        <owl:onProperty rdf:resource=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/rdfcache.owl#hasXslTransformToRdf\"\/>\n");
+print OP ("        <owl:onProperty rdf:resource=\"http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#hasXslTransformToRdf\"/>\n");
 print OP ("        <owl:hasValue>\n");
-print OP ("          <rdfcache:XslTransform rdf:about=\"http:\/\/iridl.ldeo.columbia.edu\/ontologies\/xslt\/RDFa2RDFXML.xsl\"><rdfs:label>RDFa2RDFXML<\/rdfs:label>\n");
-print OP ("	  <\/rdfcache:XslTransform>\n");
-print OP ("        <\/owl:hasValue>\n");
-print OP ("      <\/owl:Restriction>\n");
-print OP ("    <\/rdfs:subClassOf>\n");
-print OP ("  <\/owl:Class>\n");
-print OP ("<\/rdf:RDF>\n");
+print OP ("          <rdfcache:XslTransform rdf:about=\"http://iridl.ldeo.columbia.edu/ontologies/xslt/RDFa2RDFXML.xsl\"><rdfs:label>RDFa2RDFXML</rdfs:label>\n");
+print OP ("	  </rdfcache:XslTransform>\n");
+print OP ("        </owl:hasValue>\n");
+print OP ("      </owl:Restriction>\n");
+print OP ("    </rdfs:subClassOf>\n");
+print OP ("  </owl:Class>\n");
+print OP ("</rdf:RDF>\n");
 
 close OP;

@@ -26,12 +26,12 @@ while ( $ip = <IP> ) {
 # strip off the leading     <maproomregistry:importsRdfa rdf:resource="
   $ip =~ s/    <maproomregistry:importsRdfa rdf:resource=\"//;
 # strip off the trailing "/>
-  $ip =~ s/\"\/>//;
+  $ip =~ s/\"/>//;
 # create the html version of $ip
   $op = $ip;
   $op =~ s/xhtml/html/;
 # send html version filenames to a .gitignore file
-  print GI "\/maproom\/$op\n";
+  print GI "/maproom/$op\n";
   $command = "saxon_transform $ip tab.xslt > $op";
   print "$command \n";
   system ($command) == 0

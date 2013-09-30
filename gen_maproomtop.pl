@@ -56,14 +56,14 @@ EOH
 
 while ( $mp = <MP> ) {
     if($mp =~ /importsRdfa/){
-$mp =~ s/rdf:resource="file:[^ "]+\/maproom\/([^ "]+)"/rdf:resource="\1"/;
+$mp =~ s/rdf:resource="file:[^ "]+/maproom/([^ "]+)"/rdf:resource="\1"/;
   print OP "$mp";
     }
 }
 close MP;
 
 # prepare end of owl file
-print OP ("  <\/owl:Ontology>\n");
+print OP ("  </owl:Ontology>\n");
 print OP << 'EOR';
  <owl:ObjectProperty rdf:about="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#importsRdfa">
         <rdfs:range rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType"/>
@@ -144,7 +144,7 @@ xsd=&lt;http://www.w3.org/2001/XMLSchema#&gt;
 </rdfcache:serql_text>
 </rdfcache:ConstructRule>
 EOR
-print OP ("<\/rdf:RDF>\n");
+print OP ("</rdf:RDF>\n");
 
 
 close OP;
