@@ -44,7 +44,7 @@ $xvers = $mp;
 $xvers =~ s/\.html/.xhtml/;
 if ($xvers eq $mp || ! -f $xvers ){
 # strip off the leading ./
-  $mp =~ s/.///;
+  $mp =~ s/.\///;
 # find the file extension
   my ($dir, $name, $ext) = fileparse($mp, @exts);
   if ($ext) {
