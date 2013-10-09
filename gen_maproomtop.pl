@@ -56,7 +56,7 @@ EOH
 
 while ( $mp = <MP> ) {
     if($mp =~ /importsRdfa/){
-$mp =~ s/rdf:resource="file:[^ "]+/maproom/([^ "]+)"/rdf:resource="\1"/;
+$mp =~ s/rdf:resource="file:[^ "]+\/maproom\/([^ "]+)"/rdf:resource="\1"/;
   print OP "$mp";
     }
 }
