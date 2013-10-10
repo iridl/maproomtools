@@ -7,11 +7,6 @@
 
 use File::Basename;
 
-# check for files with rdfa content and are not backup files from emacs or being tagged
-# (e.g. ends with .html or .en or .es or .xx, not .en~ or .en.20120506)
-
-my @exts = qw(.en .es .fr .id .ru .sw .mg .html .xhtml);
-
 print "Building maproomregistry.\n";
 
 system ('find . -exec grep -l XHTML+RDFa "{}" \; | sort > maproomregistry.prelist');
@@ -46,7 +41,7 @@ if ($xvers eq $mp || ! -f $xvers ){
 # strip off the leading ./
   $mp =~ s/.\///;
 # find the file extension
-  my ($dir, $name, $ext) = fileparse($mp, @exts);
+  my ($dir, $name, $ext) = fileparse($mp, qr/\.x?html($|\.[^.]+[^~]$)/);
   if ($ext) {
 
 # open each file and check for string INGRID in 1st line
