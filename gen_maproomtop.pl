@@ -131,7 +131,7 @@ print OP << 'EOR';
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
-<rdfcache:ConstructRule rdf:id="map2rss">
+<rdfcache:ConstructRule ID="map2rss">
  <rdfcache:serql_text rdf:datatype="http://www.w3.org/2001/XMLSchema#;string">
 CONSTRUCT DISTINCT {canonicalurl} rss:link {fn:cast(canonicalurl,xsd:string)}
     FROM {map} vocab:canonical {canonicalurl}, 
