@@ -52,7 +52,10 @@ print OP <<"EOH";
   xmlns:reg ="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#">
   <owl:Ontology rdf:about="">
 EOH
-# read through and copy top.xml 
+# read through and copy top.xml
+ if( -f "Imports/moremetadata.owl" ){
+print OP ("  <owl:imports rdf:resource=\"Imports/moremetadata.owl\"/>\n");
+}
 
 while ( $mp = <MP> ) {
     if($mp =~ /importsRdfa/){
@@ -128,7 +131,7 @@ print OP << 'EOR';
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
-<rdfcache:ConstructRule ID="map2rss">
+<rdfcache:ConstructRule rdf:id="map2rss">
  <rdfcache:serql_text rdf:datatype="http://www.w3.org/2001/XMLSchema#;string">
 CONSTRUCT DISTINCT {canonicalurl} rss:link {fn:cast(canonicalurl,xsd:string)}
     FROM {map} vocab:canonical {canonicalurl}, 
