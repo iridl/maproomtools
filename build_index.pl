@@ -32,7 +32,7 @@ while ( $ip = <IP> ) {
   $op =~ s/xhtml/html/;
 # send html version filenames to a .gitignore file
   print GI "/maproom/$op\n";
-  $command = "saxon_transform $ip tab.xslt > $op";
+  $command = "saxon_transform $ip tab.xslt | sed 's/ *SYSTEM \"about:legacy-compat\"//' > $op";
   print "$command \n";
   system ($command) == 0
      or die "system $command failed: $?";
