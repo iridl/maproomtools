@@ -47,6 +47,7 @@ print OP <<"EOH";
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml/vocab#"
   xmlns:rdfcache="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#"
   xmlns:cross="http://iridl.ldeo.columbia.edu/ontologies/iricrosswalk.owl#"
   xmlns:reg ="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#">
@@ -59,8 +60,11 @@ print OP ("  <owl:imports rdf:resource=\"Imports/moremetadata.owl\"/>\n");
 
 while ( $mp = <MP> ) {
     if($mp =~ /importsRdfa/){
-$mp =~ s/rdf:resource="file:[^ "]+\/maproom\/([^ "]+)"/rdf:resource="\1"/;
-  print OP "$mp";
+	$mp =~ s/rdf:resource="file:[^ "]+\/maproom\/([^ "]+)"/rdf:resource="\1"/;
+	print OP "$mp";
+	if($mp =~ /\"([^ ]+\/)index.html\"/){
+	    print OP "<rdf:Description rdf:about=\"$1index.html\"><xhtml:alternate rdf:resource=\"$1\" /></rdf:Description>\n";
+	}
     }
 }
 close MP;
