@@ -61,9 +61,13 @@ print OP ("  <owl:imports rdf:resource=\"Imports/moremetadata.owl\"/>\n");
 while ( $mp = <MP> ) {
     if($mp =~ /importsRdfa/){
 	$mp =~ s/rdf:resource="file:[^ "]+\/maproom\/([^ "]+)"/rdf:resource="\1"/;
-	print OP "$mp";
 	if($mp =~ /\"([^ ]+\/)index.html\"/){
+	print OP "<reg:imputsRdfa>";
 	    print OP "<rdf:Description rdf:about=\"$1index.html\"><xhtml:alternate rdf:resource=\"$1\" /></rdf:Description>\n";
+	print OP "</reg:imputsRdfa>";
+	}
+	else {
+	print OP "$mp";
 	}
     }
 }
