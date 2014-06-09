@@ -63,8 +63,8 @@ while ( $mp = <MP> ) {
 	$mp =~ s/rdf:resource="file:[^ "]+\/maproom\/([^ "]+)"/rdf:resource="\1"/;
 	if($mp =~ /\"([^ ]+\/)index.html\"/){
 	print OP "<reg:imputsRdfa>";
-	    print OP "<rdf:Description rdf:about=\"$1index.html\"><xhtml:alternate rdf:resource=\"$1\" /></rdf:Description>\n";
-	print OP "</reg:imputsRdfa>";
+	    print OP "<rdf:Description rdf:about=\"$1index.html\"><xhtml:alternate rdf:resource=\"$1\" /></rdf:Description>";
+	print OP "</reg:imputsRdfa>\n";
 	}
 	else {
 	print OP "$mp";
