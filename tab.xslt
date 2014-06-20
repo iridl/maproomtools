@@ -226,7 +226,15 @@
 			     </xsl:otherwise>
 			      </xsl:choose>
 		     </xsl:variable>
-                            <div class="item"><div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl2}">
+		            <xsl:element name="div">
+			    <xsl:attribute name="class">item</xsl:attribute>
+			    <xsl:attribute name="sem">
+			                <xsl:for-each select="$fileelement/iriterms:isDescribedBy/@rdf:resource">
+					<xsl:sequence select="iridl:rdfCuri(.)" />
+					<xsl:text> </xsl:text>
+					</xsl:for-each>
+			    </xsl:attribute>
+			    <div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl2}">
                             <xsl:value-of select="($fileelement/iriterms:title[@xml:lang=$language],$fileelement/iriterms:title[@xml:lang=$defaultlanguage],$fileelement/iriterms:title[1])[1]"/>
                             </a></div>
                             <xsl:choose><!-- CHECK ICON; IF local, USE LOCAL PATH, if otherwise file:///, start with / , otherwise full url -->
@@ -243,7 +251,7 @@
                             <div class="itemDescription">
                             <xsl:value-of select="($fileelement/iriterms:description[@xml:lang=$language],$fileelement/iriterms:description[@xml:lang=$defaultlanguage],$fileelement/iriterms:description[1])[1]" disable-output-escaping="no"/></div>
                             <div class="itemFooter"></div>
-                            </div>
+                            </xsl:element>
                   </xsl:for-each> 
 		  </div>
 	 </xsl:otherwise>
