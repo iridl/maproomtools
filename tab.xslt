@@ -3,6 +3,7 @@
             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	    xmlns:maproomregistry="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#"
             xmlns:maproom="http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#"
+            xmlns:iridl="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#"
 	    xmlns:vocab="http://www.w3.org/1999/xhtml/vocab#"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
             xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -137,7 +138,15 @@
 			      </xsl:choose>
 		     </xsl:variable>
                       <xsl:if test="$fileelement/maproomregistry:tabterm/@rdf:resource = $hr"> <!-- MAKE SURE THE MAPPAGE IS IN THE CURRENT TABTERM GROUP (THIS IS EFFECTIVELY THE INNER LOOP FOR A GROUP)-->
-                            <div class="item"><div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl2}">
+		            <xsl:element name="div">
+			    <xsl:attribute name="class">item</xsl:attribute>
+			    <xsl:attribute name="sem">
+			                <xsl:for-each select="$fileelement/iriterms:isDescribedBy/@rdf:resource">
+					<xsl:sequence select="iridl:rdfCuri(.)" />
+					<xsl:text> </xsl:text>
+					</xsl:for-each>
+			    </xsl:attribute>
+			    <div class="itemTitle"><a class="{$titleclass}" href="{$canonicalurl2}">
                             <xsl:value-of select="($fileelement/iriterms:title[@xml:lang=$language],$fileelement/iriterms:title[@xml:lang=$defaultlanguage],$fileelement/iriterms:title[1])[1]"/>
                             </a></div>
                             <xsl:choose><!-- CHECK ICON; IF local, USE LOCAL PATH, if otherwise file:///, start with / , otherwise full url -->
@@ -154,7 +163,7 @@
                             <div class="itemDescription">
                             <xsl:value-of select="($fileelement/iriterms:description[@xml:lang=$language],$fileelement/iriterms:description[@xml:lang=$defaultlanguage],$fileelement/iriterms:description[1])[1]" disable-output-escaping="no"/></div>
                             <div class="itemFooter"></div>
-                            </div>
+                            </xsl:element>
                     </xsl:if> <!-- MEMBER OF THE GROUP -->
                   </xsl:for-each> 
             </div>
@@ -242,6 +251,24 @@
     </div>
     </div>
     </xsl:template>
+
+	<xsl:function name="iridl:rdfCuri" as="xs:string">
+		<xsl:param name="uriRef" as="xs:string"/>
+		<xsl:choose>
+			<xsl:when test="starts-with($uriRef,'http://iridl.ldeo.columbia.edu/ontologies/irigaz.owl#')" >
+				<xsl:value-of select="concat('gaz',':',substring-after($uriRef,'#'))"/>
+			</xsl:when>
+			<xsl:when test="starts-with($uriRef,'http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#')" >
+				<xsl:value-of select="concat('iridl',':',substring-after($uriRef,'#'))"/>
+			</xsl:when>
+			<xsl:when test="starts-with($uriRef,'http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#')" >
+				<xsl:value-of select="concat('maproom',':',substring-after($uriRef,'#'))"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="concat('unknown',':',substring-after($uriRef,'#'))"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
     
 </xsl:stylesheet>
 

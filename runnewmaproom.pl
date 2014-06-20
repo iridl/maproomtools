@@ -27,7 +27,8 @@ iriterms:title {title},
 [{mappage} iriterms:icon {icon}],
 [{mappage} maproomregistry:tablabel {lbl};
 maproomregistry:tabterm {tabterm},
-{tabterm} rdf:label {lbl}]
+{tabterm} rdf:label {lbl}],
+{mappage} iriterms:isDescribedBy {sem}
  from
 {indexpage} vocab:section {mappage},
 {mappage} iriterms:description {description};
@@ -36,7 +37,8 @@ iriterms:title {title},
 [{mappage} maproom:Sort_Id {sortid}],
 [{mappage} iriterms:icon {icon}],
  [{indexpage} maproom:tabterm {tabterm}, {mappage} iriterms:isDescribedBy {tabterm} iriterms:label {lbl}
-WHERE lang(title)=lang(lbl) ]
+WHERE lang(title)=lang(lbl) ],
+[{mappage} iriterms:isDescribedBy {sem}]
 USING NAMESPACE
 maproomregistry = <http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#>,
 vocab = <http://www.w3.org/1999/xhtml/vocab#>,
@@ -47,6 +49,6 @@ close IP;
 system("rdfcache -ruleset='$ruleset' -cache=newmaproomcache -construct=maproom_section_index.serql -constructoutput=./tabs.nt file:///$pwd/maproomregistry.owl >>newmaproomcache/rdfcachelog.txt");
 
 print ("Converting tabs.nt to tabs.xml\n");
-system("rapper -q -i ntriples -o rdfxml-abbrev -f 'xmlns:terms=\"http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#\"' -f 'xmlns:reg=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#\"' -f 'xmlns:map=\"http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#\"' -f 'xmlns:vocab=\"http://www.w3.org/1999/xhtml/vocab#\"' tabs.nt > tabs.xml");
+system("rapper -q -i ntriples -o rdfxml-abbrev -f 'xmlns:terms=\"http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#\"' -f 'xmlns:reg=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#\"' -f 'xmlns:map=\"http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#\"'-f 'xmlns:gaz=\"http://iridl.ldeo.columbia.edu/ontologies/iri_gaz.owl#\"' -f 'xmlns:vocab=\"http://www.w3.org/1999/xhtml/vocab#\"' tabs.nt > tabs.xml");
 
 system("date");
