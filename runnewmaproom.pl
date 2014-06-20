@@ -49,6 +49,6 @@ close IP;
 system("rdfcache -ruleset='$ruleset' -cache=newmaproomcache -construct=maproom_section_index.serql -constructoutput=./tabs.nt file:///$pwd/maproomregistry.owl >>newmaproomcache/rdfcachelog.txt");
 
 print ("Converting tabs.nt to tabs.xml\n");
-system("rapper -q -i ntriples -o rdfxml-abbrev -f 'xmlns:terms=\"http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#\"' -f 'xmlns:reg=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#\"' -f 'xmlns:map=\"http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#\"'-f 'xmlns:gaz=\"http://iridl.ldeo.columbia.edu/ontologies/iri_gaz.owl#\"' -f 'xmlns:vocab=\"http://www.w3.org/1999/xhtml/vocab#\"' tabs.nt > tabs.xml");
+system("rapper -q -i ntriples -o rdfxml-abbrev -f 'xmlns:terms=\"http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#\"' -f 'xmlns:reg=\"http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#\"' -f 'xmlns:map=\"http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#\"' -f 'xmlns:gaz=\"http://iridl.ldeo.columbia.edu/ontologies/iri_gaz.owl#\"' -f 'xmlns:vocab=\"http://www.w3.org/1999/xhtml/vocab#\"' tabs.nt > tabs.xml");
 
 system("date");
