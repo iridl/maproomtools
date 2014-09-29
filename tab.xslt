@@ -1,6 +1,7 @@
 <xsl:stylesheet version="2.0"
             xmlns="http://www.w3.org/1999/xhtml"
             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
 	    xmlns:maproomregistry="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#"
             xmlns:maproom="http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#"
             xmlns:iridl="http://iridl.ldeo.columbia.edu/ontologies/iridl.owl#"
@@ -37,11 +38,11 @@
 		 </xsl:if>
 		 <a href="#tabs-{position()}">
                      <xsl:choose> <!-- CHECK FOR LANGUAGE MATCH FOR TAB LABEL -->
-                       <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang=$language]">
-                         <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang=$language]"/>
+                       <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:label[@xml:lang=$language]">
+                         <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:label[@xml:lang=$language]"/>
                        </xsl:when>
                        <xsl:otherwise> <!-- USE .EN -->
-                         <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang='en']"/>
+                         <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:label[@xml:lang='en']"/>
                        </xsl:otherwise> 
                      </xsl:choose>
                  </a>
@@ -73,15 +74,26 @@
             <!-- THE LABEL OF EACH TABTERM GROUP -->
             <xsl:variable name="group">
             <xsl:choose>
-              <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang=$language]" > <!-- WHEN LANG TAG MATCHES -->
-                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang=$language]"/>
+              <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:label[@xml:lang=$language]" > <!-- WHEN LANG TAG MATCHES -->
+                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:label[@xml:lang=$language]"/>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdf:label[@xml:lang='en']"/> <!-- OTHERWISE USE EN (BE CAREFUL ABOUT THIS CONDITION) -->
+                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:label[@xml:lang='en']"/> <!-- OTHERWISE USE EN (BE CAREFUL ABOUT THIS CONDITION) -->
               </xsl:otherwise>
             </xsl:choose>
             </xsl:variable> 
+            <xsl:variable name="groupdesc"><xsl:choose>
+              <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:comment[@xml:lang=$language]" > <!-- WHEN LANG TAG MATCHES -->
+                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:comment[@xml:lang=$language]"/>
+              </xsl:when>
+              <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:comment[@xml:lang='en']">
+                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:comment[@xml:lang='en']"/> <!-- OTHERWISE USE EN (BE CAREFUL ABOUT THIS CONDITION) -->
+              </xsl:when>
+            </xsl:choose></xsl:variable> 
             <div class="itemGroup"><xsl:value-of select="$group" disable-output-escaping="no" /></div>
+	    <xsl:if test="$groupdesc != ''">
+            <div class="itemGroupDescription"><xsl:value-of select="$groupdesc" disable-output-escaping="no" /></div>
+	    </xsl:if>
                     <xsl:for-each select="$tabs/rdf:RDF/rdf:Description[index-of($subsectionurls,@rdf:about) > 0]">
                     <xsl:sort select="(maproom:Sort_Id | @rdf:about[not(../maproom:Sort_Id)])[1]"/>
 		    <xsl:variable name="canonicalelement">
