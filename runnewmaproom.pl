@@ -36,7 +36,7 @@ iriterms:title {title},
 {mappage} vocab:canonical {canonical},
 [{mappage} maproom:Sort_Id {sortid}],
 [{mappage} iriterms:icon {icon}],
- [{indexpage} maproom:tabterm {tabterm}, {mappage} iriterms:isDescribedBy {tabterm} iriterms:label {lbl}
+    [{indexpage} maproom:tabterm {tabterm}, {mappage} iriterms:isDescribedBy {tabterm} iriterms:label {lbl},[{tabterm} iriterms:gloss {gloss}]
 WHERE lang(title)=lang(lbl) ],
 [{mappage} iriterms:isDescribedBy {sem}]
 USING NAMESPACE

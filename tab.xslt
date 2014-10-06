@@ -83,11 +83,11 @@
             </xsl:choose>
             </xsl:variable> 
             <xsl:variable name="groupdesc"><xsl:choose>
-              <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:comment[@xml:lang=$language]" > <!-- WHEN LANG TAG MATCHES -->
-                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:comment[@xml:lang=$language]"/>
+              <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/iriterms:gloss[@xml:lang=$language]" > <!-- WHEN LANG TAG MATCHES -->
+                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/iriterms:gloss[@xml:lang=$language]"/>
               </xsl:when>
-              <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:comment[@xml:lang='en']">
-                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/rdfs:comment[@xml:lang='en']"/> <!-- OTHERWISE USE EN (BE CAREFUL ABOUT THIS CONDITION) -->
+              <xsl:when test="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/iriterms:gloss[@xml:lang='en']">
+                <xsl:value-of select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$hr]/iriterms:gloss[@xml:lang='en']"/> <!-- OTHERWISE USE EN (BE CAREFUL ABOUT THIS CONDITION) -->
               </xsl:when>
             </xsl:choose></xsl:variable> 
             <div class="itemGroup"><xsl:value-of select="$group" disable-output-escaping="no" /></div>
