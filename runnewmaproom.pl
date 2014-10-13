@@ -27,7 +27,8 @@ iriterms:title {title},
 [{mappage} iriterms:icon {icon}],
 [{mappage} maproomregistry:tablabel {lbl};
 maproomregistry:tabterm {tabterm},
-{tabterm} rdfs:label {lbl}],
+{tabterm} rdfs:label {lbl},
+{tabterm} iriterms:gloss {gloss}],
 {mappage} iriterms:isDescribedBy {sem}
  from
 {indexpage} vocab:section {mappage},
