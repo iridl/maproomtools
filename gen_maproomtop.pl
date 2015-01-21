@@ -28,7 +28,7 @@ EOQ
 my $pwd = cwd();
 print "Generating maproomtop.owl In $pwd\n";
 
-system("rdfcache -ruleset='$ruleset' -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt file:///$pwd/maproomregistry.owl >>newmaproomcache/rdfcachelog.txt");
+system("rdfcache -ruleset='$ruleset' -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt file://$pwd/maproomregistry.owl >>newmaproomcache/rdfcachelog.txt");
 
 # convert ntriples to rdfxml
 

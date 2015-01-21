@@ -7,6 +7,7 @@
 # added the creation of a .gitignore file in the maproom git root dir
 
 use File::Basename;
+use Cwd;
 $maproomtoolsdir = dirname($0);
 
 print "Building index.html files\n";
@@ -32,7 +33,10 @@ while ( $ip = <IP> ) {
   $op =~ s/xhtml/html/;
 # send html version filenames to a .gitignore file
   print GI "/maproom/$op\n";
-  $command = "saxon_transform $ip tab.xslt | sed 's/ *SYSTEM \"about:legacy-compat\"//' > $op";
+#topdir is one above the cwd because we run in maproom subdir
+  $topdir = cwd();
+  $topdir =~ s/\/maproom$//;
+  $command = "saxon_transform $ip tab.xslt topdir=\"$topdir\" | sed 's/ *SYSTEM \"about:legacy-compat\"//' > $op";
   print "$command \n";
   system ($command) == 0
      or die "system $command failed: $?";
