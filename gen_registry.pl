@@ -9,7 +9,7 @@ use File::Basename;
 
 print "Building maproomregistry.\n";
 
-system ('find . -exec grep -l XHTML+RDFa "{}" \; | sort > maproomregistry.prelist');
+system ('find . -type f -exec grep -l XHTML+RDFa "{}" \; | sort > maproomregistry.prelist');
 
 open MP, "<./maproomregistry.prelist" or die "Can't open maproomregistry.prelist: $!\n";
 open OP, ">./maproomregistry.owl" or die "Can't open maproomregistry.owl: $!\n";
