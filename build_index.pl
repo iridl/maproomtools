@@ -13,7 +13,7 @@ $maproomtoolsdir = dirname($0);
 print "Building index.html files\n";
 
 # copy the tab.xslt file from the maproomtools dir
-system ("cp $maproomtoolsdir/tab.xslt ."); 
+#system ("cp $maproomtoolsdir/tab.xslt ."); 
 
 system ("cp ../.gitignore.orig ../.gitignore");
 
@@ -34,9 +34,10 @@ while ( $ip = <IP> ) {
 # send html version filenames to a .gitignore file
   print GI "/maproom/$op\n";
 #topdir is one above the cwd because we run in maproom subdir
-  $topdir = cwd();
+  $maproomdir = cwd();
+  $topdir=$maproomdir;
   $topdir =~ s/\/maproom$//;
-  $command = "saxon_transform $ip tab.xslt topdir=\"$topdir\" | sed 's/ *SYSTEM \"about:legacy-compat\"//' > $op";
+  $command = "saxon_transform $ip $maproomtoolsdir/tab.xslt topdir=\"$topdir\" metadata=\"$maproomdir/tabs.xml\"| sed 's/ *SYSTEM \"about:legacy-compat\"//' > $op";
   print "$command \n";
   system ($command) == 0
      or die "system $command failed: $?";
