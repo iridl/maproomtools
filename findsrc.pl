@@ -1,9 +1,12 @@
 #!
+$rdir = '.';
+if($ARGV[1]){
+    $rdir = $ARGV[1];
+}
 # suppresses output files (html from xhtml)
-open filelist,"find -L . -regex '.*\\.x*html[^~]*\$' |";
-#open filelist,"find -L . -name '.*\\.x?html[^~]*\$' |";
-while(<filelist>){
-    chop;
+open filelist,"find -L $rdir -regex '.*\\.x*html[^~]*\$' |";
+#open filelist,"find -L $rdir -name '.*\\.x?html[^~]*\$' |";
+while(<filelist>){    chop;
     if(/^(.+).xhtml(\..+)?$/){
 	$out = "$1.html$2";
 	$output{"$out"} = "1";
