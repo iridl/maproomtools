@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdfcache="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#"
+  xmlns:maproomregistry ="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#">
+  <owl:Ontology rdf:about="">
+  </owl:Ontology>
+    <owl:ObjectProperty rdf:about="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#importsRdfa">
+        <rdfs:range rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType"/>
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#imports"/>
+        <rdfs:isDefinedBy rdf:resource=""/>
+    </owl:ObjectProperty>
+  <owl:Class rdf:about="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType">
+    <rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#hasXslTransformToRdf"/>
+        <owl:hasValue>
+          <rdfcache:XslTransform rdf:about="http://iridl.ldeo.columbia.edu/ontologies/xslt/RDFa2RDFXML.xsl"><rdfs:label>RDFa2RDFXML</rdfs:label>
+	  </rdfcache:XslTransform>
+        </owl:hasValue>
+      </owl:Restriction>
+    </rdfs:subClassOf>
+  </owl:Class>
+</rdf:RDF>

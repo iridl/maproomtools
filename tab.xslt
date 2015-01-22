@@ -11,6 +11,7 @@
 	    xmlns:iriterms="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#">
 <xsl:output method="xhtml" indent="yes" encoding="utf-8" doctype-system="about:legacy-compat" />
 <xsl:param name="topdir" />
+<xsl:param name="alttopdir" />
 <xsl:param name="metadata" />
 <xsl:variable name="language" select="/html:html/html:body/@xml:lang | /html:html/@xml:lang"/> <!-- LANG OF PAGE WE ARE ON -->
 <xsl:variable name="defaultlanguage" select="'en'"/> <!-- DEFAULT LANG FOR SECTIONS -->
@@ -83,6 +84,12 @@
 		            <xsl:choose>
 			    <xsl:when test="contains(@rdf:about,$pagedir)">
                               <xsl:value-of select="substring-after(@rdf:about,$pagedir)"/>
+			    </xsl:when>
+			    <xsl:when test="contains(@rdf:about,$topdir)">
+                              <xsl:value-of select="substring-after(@rdf:about,$topdir)"/>
+			    </xsl:when>
+			    <xsl:when test="contains(@rdf:about,$alttopdir)">
+                              <xsl:value-of select="substring-after(@rdf:about,$alttopdir)"/>
 			    </xsl:when>
                             <xsl:otherwise>
                               <xsl:value-of select="@rdf:about"/>
@@ -158,6 +165,12 @@
 		            <xsl:choose>
 			    <xsl:when test="contains(@rdf:about,$pagedir)">
                               <xsl:value-of select="substring-after(@rdf:about,$pagedir)"/>
+			    </xsl:when>
+			    <xsl:when test="contains(@rdf:about,$topdir)">
+                              <xsl:value-of select="substring-after(@rdf:about,$topdir)"/>
+			    </xsl:when>
+			    <xsl:when test="contains(@rdf:about,$alttopdir)">
+                              <xsl:value-of select="substring-after(@rdf:about,$alttopdir)"/>
 			    </xsl:when>
                             <xsl:otherwise>
                               <xsl:value-of select="@rdf:about"/>
