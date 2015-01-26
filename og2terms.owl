@@ -10,10 +10,4 @@
 <rdf:Description rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#description">
 <owl:equivalentProperty rdf:resource="http://ogp.me/ns#description" />
 </rdf:Description>
-<rdf:Description rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#icon">
-<owl:equivalentProperty rdf:resource="http://ogp.me/ns#image" />
-</rdf:Description>
-<rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#canonical">
-<owl:equivalentProperty rdf:resource="http://ogp.me/ns#url" />
-</rdf:Description>
 </rdf:RDF>
