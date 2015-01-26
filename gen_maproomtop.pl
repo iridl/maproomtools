@@ -5,11 +5,18 @@
 # you must have rdfcache in your path
 use File::Basename;
 use Cwd;
+use Cwd 'abs_path';
 
 my $ruleset = "owl-max-optimized";
 if ($#ARGV+1 > 0) {
    $ruleset = $ARGV[0];
 }
+
+$maproomtoolsdir = abs_path(dirname($0));
+
+# copy the og2terms.owl file from the maproomtools dir
+system ("cp $maproomtoolsdir/og2terms.owl ."); 
+
 
 # run SeRQL CONSTRUCT with maproomregistry.owl as the starting point
 # pulls out the canonical urls of all the importsRdfa files
@@ -53,6 +60,7 @@ print OP <<"EOH";
   xmlns:reg ="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#">
   <owl:Ontology rdf:about="">
 EOH
+print OP ("  <owl:imports rdf:resource=\"og2terms.owl\"/>\n");
 # read through and copy top.xml
  if( -f "Imports/moremetadata.owl" ){
 print OP ("  <owl:imports rdf:resource=\"Imports/moremetadata.owl\"/>\n");
