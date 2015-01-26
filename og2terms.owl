@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:vocab="http://www.w3.org/1999/xhtml/vocab#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:term="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl" xmlns:xsp="http://www.owl-ontologies.com/2005/08/07/xsp.owl#" xmlns:smap="http://iridl.ldeo.columbia.edu/ontologies/StructureMap.owl#"  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:og="http://ogp.me/ns#">
+<owl:Ontology rdf:about="">
+<owl:imports rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl" />
+<owl:imports rdf:resource="http://ogp.me/ns/ogp.me.rdf" />
+</owl:Ontology>
+<rdf:Description rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#title">
+<owl:equivalentProperty rdf:resource="http://ogp.me/ns#title" />
+</rdf:Description>
+<rdf:Description rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#description">
+<owl:equivalentProperty rdf:resource="http://ogp.me/ns#description" />
+</rdf:Description>
+<rdf:Description rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#icon">
+<owl:equivalentProperty rdf:resource="http://ogp.me/ns#image" />
+</rdf:Description>
+<rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#canonical">
+<owl:equivalentProperty rdf:resource="http://ogp.me/ns#url" />
+</rdf:Description>
+</rdf:RDF>

@@ -6,6 +6,7 @@
   xmlns:rdfcache="http://iridl.ldeo.columbia.edu/ontologies/rdfcache.owl#"
   xmlns:maproomregistry ="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#">
   <owl:Ontology rdf:about="">
+    <owl:imports rdf:resource="og2terms.owl" />
   </owl:Ontology>
     <owl:ObjectProperty rdf:about="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#importsRdfa">
         <rdfs:range rdf:resource="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#RdfaType"/>
