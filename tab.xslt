@@ -8,6 +8,7 @@
 	    xmlns:vocab="http://www.w3.org/1999/xhtml/vocab#"
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	    xmlns:og="http://ogp.me/ns#"
 	    xmlns:iriterms="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#">
 <xsl:output method="xhtml" indent="yes" encoding="utf-8" doctype-system="about:legacy-compat" />
 <xsl:param name="topdir" />
@@ -16,6 +17,12 @@
 <xsl:variable name="language" select="/html:html/html:body/@xml:lang | /html:html/@xml:lang"/> <!-- LANG OF PAGE WE ARE ON -->
 <xsl:variable name="defaultlanguage" select="'en'"/> <!-- DEFAULT LANG FOR SECTIONS -->
 <xsl:variable name="tabs" select="document($metadata)"/> <!-- WHERE ALL THE RDF IS STORED -->
+<xsl:variable name="topdiruri" select="concat('file://',$topdir)" />
+<xsl:variable name="document-uri" select="replace(document-uri(.),'^file:','file://')"/>
+<xsl:variable name="document-dir" select="replace($document-uri,'/[^/]*$','/')"/>
+<xsl:variable name="canonical-uri" select="concat($document-dir,/html:html/html:head/*[@rel='canonical']/@href)"/>
+<xsl:variable name="canonical-uri-alt" select="replace($canonical-uri,$topdir,'')"/>
+<xsl:variable name="canonical-uri-alt2" select="replace($canonical-uri-alt,'index.html$','')"/>
 
     <xsl:template match="@*|node()"> <!-- COPY CONTENTS OF XHTML FILE AS IS -->
       <xsl:copy>
@@ -258,7 +265,44 @@
 </xsl:template>
     <xsl:template name="shutSaxonUp" match="html:Nothing">
 </xsl:template>
+    <xsl:template name="insertOpenGraphns" match="html:html">
+      <xsl:copy>
+	<xsl:namespace name="og">http://ogp.me/ns#</xsl:namespace>
+           <xsl:apply-templates select="@*|node()"/>
+      </xsl:copy>
+</xsl:template>
+    <xsl:template name="insertOpenGraph" match="html:head">
+      <xsl:copy>
+	<xsl:if test="not(*[@property='og:title'])">
+	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:title"/>
+	  <xsl:if test="$content">
+	    <xsl:element name="meta">
+	      <xsl:attribute name="property">og:title</xsl:attribute>
+	      <xsl:attribute name="content"><xsl:value-of select="$content" /></xsl:attribute>
+	    </xsl:element>
+      </xsl:if>
+      </xsl:if>
+	<xsl:if test="not(*[@property='og:description'])">
+	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:description"/>
+	  <xsl:if test="$content">
+	    <xsl:element name="meta">
+	      <xsl:attribute name="property">og:description</xsl:attribute>
+	      <xsl:attribute name="content"><xsl:value-of select="$content" /></xsl:attribute>
+	    </xsl:element>
+      </xsl:if>
+      </xsl:if>
+	<xsl:if test="not(*[@property='og:image'])">
+	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:icon/@rdf:resource"/>
+	  <xsl:if test="$content">
+	    <xsl:element name="meta">
+	      <xsl:attribute name="property">og:image</xsl:attribute>
+	      <xsl:attribute name="content"><xsl:value-of select="replace(replace($content,$topdiruri,''),'^file://','')" /></xsl:attribute>
+	    </xsl:element>
+      </xsl:if>
+      </xsl:if>
+           <xsl:apply-templates select="@*|node()"/>
+      </xsl:copy>
+</xsl:template>
 </xsl:stylesheet>
-
 
 
