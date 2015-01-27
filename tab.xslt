@@ -16,6 +16,16 @@
 <xsl:param name="metadata" />
 <xsl:variable name="language" select="/html:html/html:body/@xml:lang | /html:html/@xml:lang"/> <!-- LANG OF PAGE WE ARE ON -->
 <xsl:variable name="defaultlanguage" select="'en'"/> <!-- DEFAULT LANG FOR SECTIONS -->
+<xsl:variable name="uselanguage">
+<xsl:choose>
+<xsl:when test="$language">
+<xsl:value-of select="$language"/>
+</xsl:when>
+<xsl:otherwise>
+<xsl:value-of select="$defaultlanguage" />
+</xsl:otherwise>
+</xsl:choose>
+</xsl:variable>
 <xsl:variable name="tabs" select="document($metadata)"/> <!-- WHERE ALL THE RDF IS STORED -->
 <xsl:variable name="topdiruri" select="concat('file://',$topdir)" />
 <xsl:variable name="document-uri" select="replace(document-uri(.),'^file:','file://')"/>
@@ -273,8 +283,14 @@
 </xsl:template>
     <xsl:template name="insertOpenGraph" match="html:head">
       <xsl:copy>
+	<xsl:if test="not(*[@property='og:locale'])">
+	  <xsl:element name="meta">
+	      <xsl:attribute name="property">og:locale</xsl:attribute>
+	      <xsl:attribute name="content"><xsl:value-of select="$uselanguage" /></xsl:attribute>
+	    </xsl:element>
+      </xsl:if>
 	<xsl:if test="not(*[@property='og:title'])">
-	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:title"/>
+	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:title[@xml:lang=$uselanguage]"/>
 	  <xsl:if test="$content">
 	    <xsl:element name="meta">
 	      <xsl:attribute name="property">og:title</xsl:attribute>
@@ -283,7 +299,7 @@
       </xsl:if>
       </xsl:if>
 	<xsl:if test="not(*[@property='og:description'])">
-	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:description"/>
+	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/(iriterms:description[@xml:lang=$uselanguage])"/>
 	  <xsl:if test="$content">
 	    <xsl:element name="meta">
 	      <xsl:attribute name="property">og:description</xsl:attribute>
