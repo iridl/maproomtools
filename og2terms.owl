@@ -4,10 +4,4 @@
 <owl:imports rdf:resource="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl" />
 <owl:imports rdf:resource="http://ogp.me/ns/ogp.me.rdf" />
 </owl:Ontology>
-<rdf:Description rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#title">
-<owl:equivalentProperty rdf:resource="http://ogp.me/ns#title" />
-</rdf:Description>
-<rdf:Description rdf:about="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#description">
-<owl:equivalentProperty rdf:resource="http://ogp.me/ns#description" />
-</rdf:Description>
 </rdf:RDF>
