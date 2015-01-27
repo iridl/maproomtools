@@ -283,12 +283,6 @@
 </xsl:template>
     <xsl:template name="insertOpenGraph" match="html:head">
       <xsl:copy>
-	<xsl:if test="not(*[@property='og:locale'])">
-	  <xsl:element name="meta">
-	      <xsl:attribute name="property">og:locale</xsl:attribute>
-	      <xsl:attribute name="content"><xsl:value-of select="$uselanguage" /></xsl:attribute>
-	    </xsl:element>
-      </xsl:if>
 	<xsl:if test="not(*[@property='og:title'])">
 	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:title[@xml:lang=$uselanguage]"/>
 	  <xsl:if test="$content">
