@@ -293,6 +293,12 @@
 	    </xsl:element>
       </xsl:if>
       </xsl:if>
+	<xsl:if test="not(*[@name='twitter:card'])">
+	    <xsl:element name="meta">
+	      <xsl:attribute name="name">twitter:card</xsl:attribute>
+	      <xsl:attribute name="content">summary_large_image</xsl:attribute>
+	    </xsl:element>
+      </xsl:if>
 	<xsl:if test="not(*[@property='og:title'])">
 	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:title[@xml:lang=$uselanguage]"/>
 	  <xsl:if test="$content">
