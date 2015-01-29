@@ -3,6 +3,7 @@ iriterms:description {description};
 iriterms:title {title},
 [{canonical} maproom:Sort_Id {sortid}],
 [{mappage} iriterms:icon {icon}],
+[{mappage} twitter:site {site}],
 [{mappage} maproomregistry:tablabel {lbl};
 maproomregistry:tabterm {tabterm},
 {tabterm} rdfs:label {lbl},
@@ -15,6 +16,7 @@ iriterms:title {title},
 [{indexpage} vocab:section {mappage}],
 [{mappage} maproom:Sort_Id {sortid}],
 [{mappage} iriterms:icon {icon}],
+[{mappage} twitter:site {site}],
     [{indexpage} maproom:tabterm {tabterm}, {mappage} iriterms:isDescribedBy {tabterm} iriterms:label {lbl},[{tabterm} iriterms:gloss {gloss}]
 WHERE lang(title)=lang(lbl) ],
 [{mappage} iriterms:isDescribedBy {sem}]
@@ -22,4 +24,5 @@ USING NAMESPACE
 maproomregistry = <http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#>,
 vocab = <http://www.w3.org/1999/xhtml/vocab#>,
 iriterms = <http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#>,
+twitter = <http://dev.twitter.com/cards#>,
 maproom = <http://iridl.ldeo.columbia.edu/ontologies/maproom.owl#>

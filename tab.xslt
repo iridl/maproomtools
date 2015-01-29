@@ -9,6 +9,7 @@
             xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
             xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	    xmlns:og="http://ogp.me/ns#"
+	    xmlns:twitter="http://dev.twitter.com/cards#"
 	    xmlns:iriterms="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#">
 <xsl:output method="xhtml" indent="yes" encoding="utf-8" doctype-system="about:legacy-compat" />
 <xsl:param name="topdir" />
@@ -278,6 +279,7 @@
     <xsl:template name="insertOpenGraphns" match="html:html">
       <xsl:copy>
 	<xsl:namespace name="og">http://ogp.me/ns#</xsl:namespace>
+	<xsl:namespace name="twitter">http://dev.twitter.com/cards#</xsl:namespace>
            <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
 </xsl:template>
@@ -298,6 +300,15 @@
 	      <xsl:attribute name="name">twitter:card</xsl:attribute>
 	      <xsl:attribute name="content">summary_large_image</xsl:attribute>
 	    </xsl:element>
+      </xsl:if>
+	<xsl:if test="not(*[@name='twitter:site'])">
+	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/twitter:site"/>
+	  <xsl:if test="$content">
+	    <xsl:element name="meta">
+	      <xsl:attribute name="name">twitter:site</xsl:attribute>
+	      <xsl:attribute name="content"><xsl:value-of select="$content" /></xsl:attribute>
+	    </xsl:element>
+      </xsl:if>
       </xsl:if>
 	<xsl:if test="not(*[@property='og:title'])">
 	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:title[@xml:lang=$uselanguage]"/>
