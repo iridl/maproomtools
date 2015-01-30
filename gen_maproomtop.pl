@@ -11,9 +11,20 @@ my $ruleset = "owl-max-optimized";
 if ($#ARGV+1 > 0) {
    $ruleset = $ARGV[0];
 }
+if ($#ARGV+1 > 1) {
+   $filelist = $ARGV[1];
+}
 
 $maproomtoolsdir = abs_path(dirname($0));
 
+#topdir is one above the cwd because we run in maproom subdir
+  $maproomdir = cwd();
+  $topdir=$maproomdir;
+  $topdir =~ s/\/maproom$//;
+
+if(!$filelist){
+    $filelist = "file://$pwd/maproomregistry.owl";
+}
 # copy the og2terms.owl file from the maproomtools dir
 system ("cp $maproomtoolsdir/og2terms.owl ."); 
 
@@ -35,7 +46,7 @@ EOQ
 my $pwd = cwd();
 print "Generating maproomtop.owl In $pwd\n";
 
-system("rdfcache -ruleset='$ruleset' -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt file://$pwd/maproomregistry.owl >>newmaproomcache/rdfcachelog.txt");
+system("rdfcache -ruleset='$ruleset' -cache=newmaproomcache -construct=canonical_imports.serql -constructoutput=./top.nt $filelist file://$topdir/maproomtools/ingridregistry.owl >>newmaproomcache/rdfcachelog.txt");
 
 # convert ntriples to rdfxml
 

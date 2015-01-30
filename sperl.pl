@@ -16,14 +16,15 @@ print "</owl:Ontology>\n";
 foreach $vval (@ARGV){
     if($vval =~ /\.x?html/){
 	$fval = $vval;
-	$fval =~ s/\.xhtml.*/.html/;
+	$fval =~ s/\.x?html.*/.html/;
 	$uri = 'file:///' . $fval;
 	$uri =~ s/^file:\/\/\/\.\//file:\/\/\//;
-    print "<rdf:Description rdf:about=\"$uri\"><maproomregistry:isAbbrevFor rdf:resource=\"$fval\" /></rdf:Description>\n";
+    print "<rdf:Description rdf:about=\"$uri\"><maproomregistry:isAbbrevFor rdf:resource=\"$vval\" /></rdf:Description>\n";
     if($fval =~ /index.html/){
 	$fval =~ s/\.html.*$/.html/;
-	$uri =~ s/index.html.*$//;
-    print "<rdf:Description rdf:about=\"$uri\"><maproomregistry:isAbbrevFor rdf:resource=\"$fval\" /></rdf:Description>\n";
+	$suri = $uri;
+	$suri =~ s/index.html.*$//;
+    print "<rdf:Description rdf:about=\"$suri\"><maproomregistry:isAbbrevFor rdf:resource=\"$uri\" /></rdf:Description>\n";
     }
     }
 }

@@ -279,7 +279,6 @@
     <xsl:template name="insertOpenGraphns" match="html:html">
       <xsl:copy>
 	<xsl:namespace name="og">http://ogp.me/ns#</xsl:namespace>
-	<xsl:namespace name="twitter">http://dev.twitter.com/cards#</xsl:namespace>
            <xsl:apply-templates select="@*|node()"/>
       </xsl:copy>
 </xsl:template>
