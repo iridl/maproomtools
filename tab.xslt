@@ -329,10 +329,18 @@
       </xsl:if>
 	<xsl:if test="not(*[@property='og:image'])">
 	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:icon/@rdf:resource"/>
+	  <xsl:variable name="base" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/og:urlbase"/>
 	  <xsl:if test="$content">
 	    <xsl:element name="meta">
 	      <xsl:attribute name="property">og:image</xsl:attribute>
+	      <xsl:choose>
+	      	  <xsl:when test="$base">
+	      <xsl:attribute name="content"><xsl:value-of select="replace(replace($content,$topdiruri,$base),'^file://','')" /></xsl:attribute>
+	      </xsl:when>
+	      <xsl:otherwise>
 	      <xsl:attribute name="content"><xsl:value-of select="replace(replace($content,$topdiruri,''),'^file://','')" /></xsl:attribute>
+	      </xsl:otherwise>
+	      </xsl:choose>
 	    </xsl:element>
       </xsl:if>
       </xsl:if>

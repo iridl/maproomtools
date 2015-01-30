@@ -34,10 +34,6 @@
       <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#section"><owl:inverseOf rdf:resource="http://www.w3.org/1999/xhtml/vocab#isSectionOf" /></rdf:Description>
     <rdf:Description rdf:about="http://dev.twitter.com/cards#site">
     <owl:propertyChainAxiom rdf:parseType="Collection">
-      <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#isCanonicalFor"/>
-      <rdf:Description rdf:about="http://dev.twitter.com/cards#site"/>
-    </owl:propertyChainAxiom>
-    <owl:propertyChainAxiom rdf:parseType="Collection">
       <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#canonical"/>
       <rdf:Description rdf:about="http://dev.twitter.com/cards#site"/>
     </owl:propertyChainAxiom>
@@ -48,6 +44,20 @@
     <owl:propertyChainAxiom rdf:parseType="Collection">
       <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#isSectionOf"/>
       <rdf:Description rdf:about="http://dev.twitter.com/cards#site"/>
+    </owl:propertyChainAxiom>
+</rdf:Description>
+    <rdf:Description rdf:about="http://ogp.me/ns#urlbase">
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#canonical"/>
+      <rdf:Description rdf:about="http://ogp.me/ns#urlbase"/>
+    </owl:propertyChainAxiom>
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#isCanonicalFor"/>
+      <rdf:Description rdf:about="http://ogp.me/ns#urlbase"/>
+    </owl:propertyChainAxiom>
+    <owl:propertyChainAxiom rdf:parseType="Collection">
+      <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#isSectionOf"/>
+      <rdf:Description rdf:about="http://ogp.me/ns#urlbase"/>
     </owl:propertyChainAxiom>
 </rdf:Description>
 </rdf:RDF>
