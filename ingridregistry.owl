@@ -24,10 +24,13 @@
       </owl:Restriction>
     </rdfs:subClassOf>
   </owl:Class>
+  <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#alternate">
+  <owl:inverseOf rdf:resource="http://www.w3.org/1999/xhtml/vocab#isAlternateFor" />
+</rdf:Description>
   <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#canonical">
   <owl:inverseOf rdf:resource="http://www.w3.org/1999/xhtml/vocab#isCanonicalFor" />
     <owl:propertyChainAxiom rdf:parseType="Collection">
-      <rdf:Description rdf:about="http://iridl.ldeo.columbia.edu/maproom/maproomregistry.owl#isAbbrevFor"/>
+      <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#isAlternateFor"/>
       <rdf:Description rdf:about="http://www.w3.org/1999/xhtml/vocab#canonical"/>
     </owl:propertyChainAxiom>
 </rdf:Description>

@@ -19,12 +19,12 @@ foreach $vval (@ARGV){
 	$fval =~ s/\.x?html.*/.html/;
 	$uri = 'file:///' . $fval;
 	$uri =~ s/^file:\/\/\/\.\//file:\/\/\//;
-    print "<rdf:Description rdf:about=\"$uri\"><maproomregistry:isAbbrevFor rdf:resource=\"$vval\" /></rdf:Description>\n";
+    print "<rdf:Description rdf:about=\"$vval\"><vocab:alternate rdf:resource=\"$uri\" /></rdf:Description>\n";
     if($fval =~ /index.html/){
 	$fval =~ s/\.html.*$/.html/;
 	$suri = $uri;
 	$suri =~ s/index.html.*$//;
-    print "<rdf:Description rdf:about=\"$suri\"><maproomregistry:isAbbrevFor rdf:resource=\"$uri\" /></rdf:Description>\n";
+    print "<rdf:Description rdf:about=\"$uri\"><vocab:alternate rdf:resource=\"$suri\" /></rdf:Description>\n";
     }
     }
 }
