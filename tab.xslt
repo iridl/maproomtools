@@ -12,6 +12,7 @@
 	    xmlns:twitter="http://dev.twitter.com/cards#"
 	    xmlns:iriterms="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#">
 <xsl:output method="xhtml" indent="yes" encoding="utf-8" doctype-system="about:legacy-compat" />
+<xsl:strip-space elements="html:html html:head" />
 <xsl:param name="topdir" />
 <xsl:param name="alttopdir" />
 <xsl:param name="metadata" />
@@ -30,6 +31,7 @@
 <xsl:variable name="tabs" select="document($metadata)"/> <!-- WHERE ALL THE RDF IS STORED -->
 <xsl:variable name="topdiruri" select="concat('file://',$topdir)" />
 <xsl:variable name="document-uri" select="replace(document-uri(.),'^file:','file://')"/>
+<xsl:variable name="document-info" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]"/>
 <xsl:variable name="document-dir" select="replace($document-uri,'/[^/]*$','/')"/>
 <xsl:variable name="canonical-uri" select="concat($document-dir,/html:html/html:head/*[@rel='canonical']/@href)"/>
 <xsl:variable name="canonical-uri-alt" select="replace($canonical-uri,$topdir,'')"/>
@@ -49,7 +51,8 @@
       <xsl:variable name="pageuri2" select="replace($pageuri,'/index.html$','/')" />
       <xsl:variable name="pageuri3" select="concat('file://',$topdir,replace($pageuri1,'file://',''))" />
       <xsl:variable name="pagedir" select="concat('file://',$topdir,replace(./@about,'/[^/]+\.html$','/'))" />
-      <div class="rightcol">        
+      <xsl:copy>
+      <xsl:attribute name="class">rightcol</xsl:attribute>
       <div class="ui-tabs">
          <ul class="ui-tabs-nav">
             <xsl:for-each select="*[attribute::rel='maproom:tabterm']">
@@ -252,7 +255,7 @@
 	 </xsl:otherwise>
          </xsl:choose>
     </div>
-    </div>
+    </xsl:copy>
     </xsl:template>
     <xsl:template name="asLangGroup" match="iriterms:description|iriterms:title|rdfs:label">
 <xsl:param name="grp" />
@@ -274,9 +277,7 @@
 		     </xsl:otherwise>
 		     </xsl:choose>
 </xsl:template>
-    <xsl:template name="shutSaxonUp" match="html:Nothing">
-</xsl:template>
-    <xsl:template name="insertOpenGraphns" match="html:html">
+    <xsl:template name="insertOpenGraphns" match="/html:html">
       <xsl:copy>
 	<xsl:namespace name="og">http://ogp.me/ns#</xsl:namespace>
            <xsl:apply-templates select="@*|node()"/>
@@ -285,7 +286,7 @@
     <xsl:template name="insertOpenGraph" match="html:head">
       <xsl:copy>
 	<xsl:if test="not(*[@name='description'])">
-	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/(iriterms:description[@xml:lang=$uselanguage])"/>
+	  <xsl:variable name="content" select="$document-info/(iriterms:description[@xml:lang=$uselanguage])"/>
 	  <xsl:if test="$content">
 	    <xsl:element name="meta">
 	      <xsl:attribute name="name">description</xsl:attribute>
@@ -301,7 +302,7 @@
 	    </xsl:element>
       </xsl:if>
 	<xsl:if test="not(*[@name='twitter:site'])">
-	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/twitter:site"/>
+	  <xsl:variable name="content" select="$document-info/twitter:site"/>
 	  <xsl:if test="$content">
 	    <xsl:element name="meta">
 	      <xsl:attribute name="name">twitter:site</xsl:attribute>
@@ -310,7 +311,7 @@
       </xsl:if>
       </xsl:if>
 	<xsl:if test="not(*[@property='og:title'])">
-	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:title[@xml:lang=$uselanguage]"/>
+	  <xsl:variable name="content" select="$document-info/iriterms:title[@xml:lang=$uselanguage]"/>
 	  <xsl:if test="$content">
 	    <xsl:element name="meta">
 	      <xsl:attribute name="property">og:title</xsl:attribute>
@@ -319,7 +320,7 @@
       </xsl:if>
       </xsl:if>
 	<xsl:if test="not(*[@property='og:description'])">
-	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/(iriterms:description[@xml:lang=$uselanguage])"/>
+	  <xsl:variable name="content" select="$document-info/(iriterms:description[@xml:lang=$uselanguage])"/>
 	  <xsl:if test="$content">
 	    <xsl:element name="meta">
 	      <xsl:attribute name="property">og:description</xsl:attribute>
@@ -328,8 +329,8 @@
       </xsl:if>
       </xsl:if>
 	<xsl:if test="not(*[@property='og:image'])">
-	  <xsl:variable name="content" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/iriterms:icon/@rdf:resource"/>
-	  <xsl:variable name="base" select="$tabs//rdf:RDF/rdf:Description[@rdf:about=$document-uri]/og:urlbase"/>
+	  <xsl:variable name="content" select="$document-info/iriterms:icon/@rdf:resource"/>
+	  <xsl:variable name="base" select="$document-info/og:urlbase"/>
 	  <xsl:if test="$content">
 	    <xsl:element name="meta">
 	      <xsl:attribute name="property">og:image</xsl:attribute>
