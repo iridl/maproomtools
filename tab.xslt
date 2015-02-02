@@ -10,7 +10,8 @@
             xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	    xmlns:og="http://ogp.me/ns#"
 	    xmlns:twitter="http://dev.twitter.com/cards#"
-	    xmlns:iriterms="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#">
+	    xmlns:iriterms="http://iridl.ldeo.columbia.edu/ontologies/iriterms.owl#"
+exclude-result-prefixes="html maproomregistry maproom rdf rdfs vocab xs twitter iriterms">
 <xsl:output method="xhtml" indent="yes" encoding="utf-8" doctype-system="about:legacy-compat" />
 <xsl:strip-space elements="html:html html:head" />
 <xsl:param name="topdir" />
