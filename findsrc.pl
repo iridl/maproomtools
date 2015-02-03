@@ -25,6 +25,14 @@ if($ARGV[0] eq 'src'){
 	}
     }
 }
+elsif($ARGV[0] eq 'srchtml'){
+# srchtml -- outputs source html files
+    foreach $vval (@files){
+	if(!$output{$vval} && $vval =~ /\.html/){
+	    print "$vval\n";
+	}
+    }
+}
 elsif($ARGV[0] eq 'bld') {
 # bld -- outputs target (to be build from xhtml) html files
     foreach $vval (sort keys %output){
